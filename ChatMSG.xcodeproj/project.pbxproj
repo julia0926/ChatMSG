@@ -9,16 +9,17 @@
 /* Begin PBXBuildFile section */
 		6CEF4A3929F8EAD900D1089D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEF4A3829F8EAD900D1089D /* AppDelegate.swift */; };
 		6CEF4A3B29F8EAD900D1089D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEF4A3A29F8EAD900D1089D /* SceneDelegate.swift */; };
-		6CEF4A3D29F8EAD900D1089D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEF4A3C29F8EAD900D1089D /* ViewController.swift */; };
 		6CEF4A4229F8EADB00D1089D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6CEF4A4129F8EADB00D1089D /* Assets.xcassets */; };
 		6CEF4A4529F8EADB00D1089D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6CEF4A4329F8EADB00D1089D /* LaunchScreen.storyboard */; };
+		6CEF4A5129F8EC1900D1089D /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 6CEF4A5029F8EC1900D1089D /* SnapKit */; };
+		6CEF4A5429F8EC4A00D1089D /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 6CEF4A5329F8EC4A00D1089D /* Then */; };
+		6CEF4A6429F9015400D1089D /* OpenAISwift in Frameworks */ = {isa = PBXBuildFile; productRef = 6CEF4A6329F9015400D1089D /* OpenAISwift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		6CEF4A3529F8EAD900D1089D /* ChatMSG.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChatMSG.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CEF4A3829F8EAD900D1089D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6CEF4A3A29F8EAD900D1089D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		6CEF4A3C29F8EAD900D1089D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		6CEF4A4129F8EADB00D1089D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6CEF4A4429F8EADB00D1089D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6CEF4A4629F8EADB00D1089D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -29,6 +30,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6CEF4A5129F8EC1900D1089D /* SnapKit in Frameworks */,
+				6CEF4A6429F9015400D1089D /* OpenAISwift in Frameworks */,
+				6CEF4A5429F8EC4A00D1089D /* Then in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,7 +67,6 @@
 		6CEF4A4C29F8EAE400D1089D /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				6CEF4A3C29F8EAD900D1089D /* ViewController.swift */,
 				6CEF4A4E29F8EAEB00D1089D /* AppStart */,
 			);
 			path = Source;
@@ -104,6 +107,11 @@
 			dependencies = (
 			);
 			name = ChatMSG;
+			packageProductDependencies = (
+				6CEF4A5029F8EC1900D1089D /* SnapKit */,
+				6CEF4A5329F8EC4A00D1089D /* Then */,
+				6CEF4A6329F9015400D1089D /* OpenAISwift */,
+			);
 			productName = ChatMSG;
 			productReference = 6CEF4A3529F8EAD900D1089D /* ChatMSG.app */;
 			productType = "com.apple.product-type.application";
@@ -132,6 +140,11 @@
 				Base,
 			);
 			mainGroup = 6CEF4A2C29F8EAD900D1089D;
+			packageReferences = (
+				6CEF4A4F29F8EC1900D1089D /* XCRemoteSwiftPackageReference "SnapKit" */,
+				6CEF4A5229F8EC4A00D1089D /* XCRemoteSwiftPackageReference "Then" */,
+				6CEF4A6229F9015400D1089D /* XCRemoteSwiftPackageReference "OpenAISwift" */,
+			);
 			productRefGroup = 6CEF4A3629F8EAD900D1089D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -158,7 +171,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6CEF4A3D29F8EAD900D1089D /* ViewController.swift in Sources */,
 				6CEF4A3929F8EAD900D1089D /* AppDelegate.swift in Sources */,
 				6CEF4A3B29F8EAD900D1089D /* SceneDelegate.swift in Sources */,
 			);
@@ -368,6 +380,51 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		6CEF4A4F29F8EC1900D1089D /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+		6CEF4A5229F8EC4A00D1089D /* XCRemoteSwiftPackageReference "Then" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/devxoul/Then.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
+		6CEF4A6229F9015400D1089D /* XCRemoteSwiftPackageReference "OpenAISwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/adamrushy/OpenAISwift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		6CEF4A5029F8EC1900D1089D /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6CEF4A4F29F8EC1900D1089D /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+		6CEF4A5329F8EC4A00D1089D /* Then */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6CEF4A5229F8EC4A00D1089D /* XCRemoteSwiftPackageReference "Then" */;
+			productName = Then;
+		};
+		6CEF4A6329F9015400D1089D /* OpenAISwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6CEF4A6229F9015400D1089D /* XCRemoteSwiftPackageReference "OpenAISwift" */;
+			productName = OpenAISwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 6CEF4A2D29F8EAD900D1089D /* Project object */;
 }
