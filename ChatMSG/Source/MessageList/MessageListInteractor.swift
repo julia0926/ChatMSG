@@ -29,7 +29,7 @@ final class MessageListInteractor: MessageListBusinessLogic, MessageListDataStor
   
     func doSomething(request: MessageList.Something.Request) {
         worker = MessageListWorker()
-        worker?.doSomeWork()
+//        worker?.doSomeWork()
     
         let response = MessageList.Something.Response()
         presenter?.presentSomething(response: response)

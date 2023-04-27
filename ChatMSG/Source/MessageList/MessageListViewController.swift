@@ -13,6 +13,7 @@
 import UIKit
 import Then
 import SnapKit
+import OpenAISwift
 
 @MainActor
 protocol MessageListDisplayLogic: AnyObject {
@@ -69,8 +70,13 @@ final class MessageListViewController: UIViewController, MessageListDisplayLogic
         let item = UIBarButtonItem(image: UIImage(systemName: "square.and.pencil"),
                                    style: .plain,
                                    target: self,
-                                   action: nil) // TODO: 작성 페이지 연결하기
+                                   action: #selector(didTapNewMessageButton)) // TODO: 작성 페이지 연결하기
         self.navigationItem.rightBarButtonItem = item
+    }
+    
+    @objc func didTapNewMessageButton() {
+        // TODO: 라우터에 전달
+        self.navigationController?.pushViewController(NewMessageViewController(), animated: true)
     }
     
     private func setUpLayout() {
