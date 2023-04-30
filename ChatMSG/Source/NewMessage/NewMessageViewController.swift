@@ -11,6 +11,7 @@
 //
 
 import UIKit
+import Then
 
 @MainActor
 protocol NewMessageDisplayLogic: AnyObject {
@@ -49,24 +50,43 @@ final class NewMessageViewController: UIViewController, NewMessageDisplayLogic {
     }
     
     // MARK: -  UIComponent
-    private let titleLabel: UILabel = {
-        let label = UILabel()
-        return label
-    }()
+    private lazy var typeTextField: UnderLineView = UnderLineView().then {
+        $0.configure(title: "어떤 종류의 메세지인가요?")
+//        self.view.backgroundColor = .blue
+    }
+    
+    private lazy var datePickerView: WheelPickerView = WheelPickerView().then {
+        $0.configure(type: .number,
+                     title: "메세지의 상황 속 날짜는 언제인가요?")
+//        self.view.backgroundColor = .yellow
+    }
     
     // MARK: - View lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = .systemBackground
         self.setUpLayout()
         doSomething()
-        self.view.backgroundColor = .blue
-        
         //test
     }
     
     private func setUpLayout() {
-
+        [self.typeTextField, self.datePickerView].forEach {
+            self.view.addSubview($0)
+        }
+        
+        self.typeTextField.snp.makeConstraints { make in
+            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
+            make.leading.trailing.equalToSuperview().inset(20)
+            make.height.equalTo(80)
+        }
+        
+        self.datePickerView.snp.makeConstraints { make in
+            make.top.equalTo(self.typeTextField.snp.bottom).offset(20)
+            make.leading.trailing.equalToSuperview().inset(20)
+            make.height.equalTo(90)
+        }
     }
     
     // VIP Cycle Start
