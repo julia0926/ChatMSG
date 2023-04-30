@@ -71,8 +71,15 @@ final class NewMessageViewController: UIViewController, NewMessageDisplayLogic {
     
     // VIP Cycle Start
     func doSomething() {
-        let request = NewMessage.makeNewMessage.Request()
-        interactor?.fetchNewMessage(request: request)
+        let request = NewMessage.makeNewMessage.Request(type: "성적 문의",
+                                                        receiver: "000교수님",
+                                                        sender: "IT융합자율학부 000",
+                                                        date: Date.now,
+                                                        stylistic: "존댓말",
+                                                        location: nil,
+                                                        length: 400,
+                                                        situation: "자료구조 시험을 봤는데 기대했던 성적만큼 받지 못했어. 성적을 문의하고 싶어.")
+//        interactor?.makeNewMessage(request: request)
     }
     
     // MARK: - Display Logic

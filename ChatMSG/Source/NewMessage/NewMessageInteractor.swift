@@ -13,7 +13,7 @@
 import UIKit
 
 protocol NewMessageBusinessLogic {
-    func fetchNewMessage(request: NewMessage.makeNewMessage.Request)
+    func makeNewMessage(request: NewMessage.makeNewMessage.Request)
 }
 
 protocol NewMessageDataStore {
@@ -22,7 +22,8 @@ protocol NewMessageDataStore {
 
 final class NewMessageInteractor: NewMessageBusinessLogic, NewMessageDataStore {
     var presenter: NewMessagePresentationLogic?
-    private var worker: NewMessageWorker?
+    private var worker: NewMessageWorkerProtocol?
+    
     var newMessage: String?
     
     init(presenter: NewMessagePresentationLogic = NewMessagePresenter(),
@@ -32,16 +33,15 @@ final class NewMessageInteractor: NewMessageBusinessLogic, NewMessageDataStore {
     }
   
     // MARK: - fetchNewMessage
-    func fetchNewMessage(request: NewMessage.makeNewMessage.Request) {
+    func makeNewMessage(request: NewMessage.makeNewMessage.Request) {
         guard let worker = worker else { return }
-        Task { @MainActor in
-            let message = try await worker.requestNewMessage(title: "사과 메세지")
+        Task {
+            let message = try await worker.requestNewMessage(request)
             let response = NewMessage.makeNewMessage.Response(newMessage: message)
             presenter?.presentNewMessage(response: response)
             
             // TODO: 에러 헨들링
-        }
-    
-    }
 
+        }
+    }
 }

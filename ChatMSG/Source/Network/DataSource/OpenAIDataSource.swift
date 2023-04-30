@@ -9,7 +9,7 @@ import Foundation
 import OpenAISwift
 
 protocol OpenAIDataSourceProtocol {
-//    func getMessage(request: String) -> Result<String, Error>
+    func getMessage(request: OpenAIRequest) async throws -> String
 }
 
 final class OpenAIDataSource: OpenAIDataSourceProtocol {
@@ -20,7 +20,7 @@ final class OpenAIDataSource: OpenAIDataSourceProtocol {
         self.network = network
     }
     
-//    func getMessage(request: String) -> Result<String, Error> {
-//        return network.request(request)
-//    }
+    func getMessage(request: OpenAIRequest) async throws -> String {
+        return try await network.request(request)
+    }
 }

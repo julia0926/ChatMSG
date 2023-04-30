@@ -13,8 +13,7 @@
 import UIKit
 
 protocol NewMessageWorkerProtocol {
-    func requestNewMessage(title: String) async throws -> String
-
+    func requestNewMessage(_ message: NewMessage.makeNewMessage.Request) async throws -> String
 }
 
 final class NewMessageWorker: NewMessageWorkerProtocol {
@@ -24,36 +23,27 @@ final class NewMessageWorker: NewMessageWorkerProtocol {
         self.datasource = datasource
     }
     
-    func requestNewMessage(title: String) async throws -> String {
-        var temp: String?
-        let request = """
-        다음 형식과 상세 정보를 기반으로 한국어가 어색하지 않게 문단을 나눠서 메세지를 작성해줘.
-          [ 상세 정보 ]
-
-          - 메세지 유형 : 사과문
-          - 받는사람 : 직장 상사
-          - 보내는사람 : 직속 후배 000
-          - 날짜 : 어제
-          - 어체 : 문어체, 격식을 차리면서
-          - 장소 : 000고기집
-          - 메세지 길이 : 500자
-          - 상황설명 : 단체 회식을 하다가 상사의 바지에 음료를 쏟았어. 죄송하다는 얘기와 세탁비용이나 사과의 의미로 사례를 하고싶어
-        """
-        print(request)
-        Network.shared.request(request, complection: { result in
-            switch result {
-            case .success(let result):
-                print("result", result)
-                temp = result
-            case .failure(let error):
-                print("error", error)
-            }
-        })
-        print(temp)
-        return temp ?? ""
+    func requestNewMessage(_ request: NewMessage.makeNewMessage.Request) async throws -> String {
+        let output = translate(request)
+        let result = try await datasource.getMessage(request: output)
+        print("result", result)
+        return result
     }
-    func doSomeWork() {
         
+    func translate(_ model: NewMessage.makeNewMessage.Request) -> OpenAIRequest {
+        return OpenAIRequest(type: model.type,
+                             receiver: model.receiver,
+                             sender: model.sender,
+                             date: stringToDate(model.date),
+                             stylistic: model.stylistic,
+                             location: model.location ?? "없음",
+                             length: "\(model.length)자",
+                             situation: model.situation)
     }
     
+    private func stringToDate(_ data: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy년 MM월 dd일"
+        return dateFormatter.string(from: data)
+    }
 }
