@@ -12,7 +12,7 @@ final class UnderLineView: UIView {
     private lazy var titleLabel: UILabel = {
         let view = UILabel()
         view.textColor = .darkGray
-        view.font = .systemFont(ofSize: 17, weight: .semibold)
+        view.font = .systemFont(ofSize: 18, weight: .semibold)
         return view
     }()
 

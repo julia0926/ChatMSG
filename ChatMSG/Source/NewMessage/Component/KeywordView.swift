@@ -20,8 +20,8 @@ final class KeywordView: UIView {
     
     private let titleLabel: UILabel = {
         let view = UILabel()
-        view.textColor = .orange
-        view.font = .systemFont(ofSize: 17, weight: .semibold)
+        view.textColor = .darkGray
+        view.font = .systemFont(ofSize: 18, weight: .semibold)
         return view
     }()
     

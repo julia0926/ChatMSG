@@ -16,7 +16,7 @@ final class WheelPickerView: UIView {
 
     private let titleLabel: UILabel = {
         let view = UILabel()
-        view.textColor = .orange
+        view.textColor = .darkGray
         view.font = .systemFont(ofSize: 18, weight: .semibold)
         return view
     }()
