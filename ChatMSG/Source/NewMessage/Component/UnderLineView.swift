@@ -9,10 +9,9 @@ import UIKit
 
 final class UnderLineView: UIView {
     
-    
     private lazy var titleLabel: UILabel = {
         let view = UILabel()
-        view.textColor = .orange
+        view.textColor = .darkGray
         view.font = .systemFont(ofSize: 17, weight: .semibold)
         return view
     }()
@@ -20,6 +19,7 @@ final class UnderLineView: UIView {
     private lazy var infoTextField: UITextField = {
         let view = UITextField()
         view.borderStyle = .none
+        view.clearButtonMode = .whileEditing
         return view
     }()
     
@@ -28,12 +28,13 @@ final class UnderLineView: UIView {
         view.backgroundColor = .systemGray4
         return view
     }()
-
         
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.setUpLayout()
+        self.infoTextField.delegate = self
     }
+
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -65,5 +66,19 @@ final class UnderLineView: UIView {
             make.height.equalTo(2)
         }
     }
+}
+
+extension UnderLineView: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        self.underLineView.backgroundColor = .orange
+    }
     
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        self.underLineView.backgroundColor = .lightGray
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+       textField.resignFirstResponder()
+       return true
+   }
 }
