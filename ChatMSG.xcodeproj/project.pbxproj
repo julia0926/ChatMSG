@@ -10,6 +10,9 @@
 		6C005DEE29FA69AF0073712D /* OpenAIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C005DED29FA69AF0073712D /* OpenAIRequest.swift */; };
 		6C005DFB29FA82E70073712D /* UnderLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C005DFA29FA82E70073712D /* UnderLineView.swift */; };
 		6C44B88A29FE48F2007D6526 /* WheelPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C44B88929FE48F2007D6526 /* WheelPickerView.swift */; };
+		6C44B88C29FE5081007D6526 /* KeywordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C44B88B29FE5081007D6526 /* KeywordView.swift */; };
+		6C4DB30029FF40800056A2B2 /* UICollectionView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C4DB2FF29FF40800056A2B2 /* UICollectionView+Extension.swift */; };
+		6C4DB30229FF40F80056A2B2 /* KeywordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C4DB30129FF40F80056A2B2 /* KeywordCell.swift */; };
 		6C56AC1C29F913BA00D6BDD5 /* MessageListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C56AC1629F913BA00D6BDD5 /* MessageListPresenter.swift */; };
 		6C56AC1D29F913BA00D6BDD5 /* MessageListWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C56AC1729F913BA00D6BDD5 /* MessageListWorker.swift */; };
 		6C56AC1E29F913BA00D6BDD5 /* MessageListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C56AC1829F913BA00D6BDD5 /* MessageListRouter.swift */; };
@@ -36,6 +39,9 @@
 		6C005DED29FA69AF0073712D /* OpenAIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIRequest.swift; sourceTree = "<group>"; };
 		6C005DFA29FA82E70073712D /* UnderLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnderLineView.swift; sourceTree = "<group>"; };
 		6C44B88929FE48F2007D6526 /* WheelPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WheelPickerView.swift; sourceTree = "<group>"; };
+		6C44B88B29FE5081007D6526 /* KeywordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordView.swift; sourceTree = "<group>"; };
+		6C4DB2FF29FF40800056A2B2 /* UICollectionView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Extension.swift"; sourceTree = "<group>"; };
+		6C4DB30129FF40F80056A2B2 /* KeywordCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordCell.swift; sourceTree = "<group>"; };
 		6C56AC1629F913BA00D6BDD5 /* MessageListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageListPresenter.swift; sourceTree = "<group>"; };
 		6C56AC1729F913BA00D6BDD5 /* MessageListWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageListWorker.swift; sourceTree = "<group>"; };
 		6C56AC1829F913BA00D6BDD5 /* MessageListRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageListRouter.swift; sourceTree = "<group>"; };
@@ -85,8 +91,18 @@
 			children = (
 				6C005DFA29FA82E70073712D /* UnderLineView.swift */,
 				6C44B88929FE48F2007D6526 /* WheelPickerView.swift */,
+				6C44B88B29FE5081007D6526 /* KeywordView.swift */,
+				6C4DB30129FF40F80056A2B2 /* KeywordCell.swift */,
 			);
 			path = Component;
+			sourceTree = "<group>";
+		};
+		6C4DB2FE29FF40720056A2B2 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				6C4DB2FF29FF40800056A2B2 /* UICollectionView+Extension.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 		6C56AC1529F913AC00D6BDD5 /* MessageList */ = {
@@ -153,10 +169,11 @@
 		6CEF4A4C29F8EAE400D1089D /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				6CEF4A4E29F8EAEB00D1089D /* AppStart */,
 				6C56AC2F29F91D3D00D6BDD5 /* Network */,
 				6C56AC2229F916DF00D6BDD5 /* NewMessage */,
 				6C56AC1529F913AC00D6BDD5 /* MessageList */,
-				6CEF4A4E29F8EAEB00D1089D /* AppStart */,
+				6C4DB2FE29FF40720056A2B2 /* Extension */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -270,10 +287,13 @@
 				6C56AC2A29F9170C00D6BDD5 /* NewMessageWorker.swift in Sources */,
 				6C56AC1F29F913BA00D6BDD5 /* MessageListModels.swift in Sources */,
 				6C56AC1D29F913BA00D6BDD5 /* MessageListWorker.swift in Sources */,
+				6C4DB30229FF40F80056A2B2 /* KeywordCell.swift in Sources */,
 				6C56AC2D29F9170C00D6BDD5 /* NewMessageViewController.swift in Sources */,
 				6C56AC2E29F9170C00D6BDD5 /* NewMessageInteractor.swift in Sources */,
 				6C56AC2B29F9170C00D6BDD5 /* NewMessageRouter.swift in Sources */,
+				6C4DB30029FF40800056A2B2 /* UICollectionView+Extension.swift in Sources */,
 				6C56AC1C29F913BA00D6BDD5 /* MessageListPresenter.swift in Sources */,
+				6C44B88C29FE5081007D6526 /* KeywordView.swift in Sources */,
 				6C56AC1E29F913BA00D6BDD5 /* MessageListRouter.swift in Sources */,
 				6CEF4A3B29F8EAD900D1089D /* SceneDelegate.swift in Sources */,
 				6C56AC3129F91D6C00D6BDD5 /* OpenAIDataSource.swift in Sources */,
