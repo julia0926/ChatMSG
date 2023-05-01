@@ -13,6 +13,12 @@
 import UIKit
 import SnapKit
 
+struct Dummy {
+    let type: String
+    let date: String
+    let receiver: String
+}
+
 @MainActor
 protocol MessageListDisplayLogic: AnyObject {
     func displaySomething(viewModel: MessageList.Something.ViewModel)
@@ -21,6 +27,10 @@ protocol MessageListDisplayLogic: AnyObject {
 final class MessageListViewController: UIViewController, MessageListDisplayLogic {
     var interactor: MessageListBusinessLogic?
     var router: (MessageListRoutingLogic & MessageListDataPassing)?
+    
+    private let dummyList: [Dummy] = [
+        Dummy(type: "감사", date: "23/05/01", receiver: "직장상사"),
+        Dummy(type: "감사222", date: "23/05/01", receiver: "친구")]
     
     // MARK: - Object lifecycle
     
@@ -53,6 +63,10 @@ final class MessageListViewController: UIViewController, MessageListDisplayLogic
     private lazy var messageListTableView: UITableView = {
         let view = UITableView()
         view.backgroundColor = .systemBackground
+        view.register(MessageListCell.self)
+        view.rowHeight = 100
+        view.dataSource = self
+        view.delegate = self
         return view
     }()
     
@@ -81,7 +95,7 @@ final class MessageListViewController: UIViewController, MessageListDisplayLogic
         
         self.messageListTableView.snp.makeConstraints { make in
             make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
-            make.leading.bottom.trailing.equalToSuperview()
+            make.leading.trailing.bottom.equalToSuperview().inset(20)
         }
     }
     
@@ -99,3 +113,20 @@ final class MessageListViewController: UIViewController, MessageListDisplayLogic
     
 }
 
+extension MessageListViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return dummyList.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(type: MessageListCell.self, for: indexPath)
+        cell.configure(data: self.dummyList[indexPath.row])
+        return cell
+    }
+    
+    
+}
+
+extension MessageListViewController: UITableViewDelegate {
+    
+}
