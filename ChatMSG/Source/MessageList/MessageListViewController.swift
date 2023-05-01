@@ -11,7 +11,6 @@
 //
 
 import UIKit
-import Then
 import SnapKit
 import OpenAISwift
 
@@ -52,9 +51,11 @@ final class MessageListViewController: UIViewController, MessageListDisplayLogic
     }
     
     // MARK: -  UIComponent
-    private lazy var messageListTableView = UITableView().then {
-        $0.backgroundColor = .systemBackground
-    }
+    private lazy var messageListTableView: UITableView = {
+        let view = UITableView()
+        view.backgroundColor = .systemBackground
+        return view
+    }()
     
     // MARK: - View lifecycle
     

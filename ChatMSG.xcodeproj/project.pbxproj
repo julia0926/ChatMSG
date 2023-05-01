@@ -29,7 +29,6 @@
 		6CEF4A4229F8EADB00D1089D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6CEF4A4129F8EADB00D1089D /* Assets.xcassets */; };
 		6CEF4A4529F8EADB00D1089D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6CEF4A4329F8EADB00D1089D /* LaunchScreen.storyboard */; };
 		6CEF4A5129F8EC1900D1089D /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 6CEF4A5029F8EC1900D1089D /* SnapKit */; };
-		6CEF4A5429F8EC4A00D1089D /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 6CEF4A5329F8EC4A00D1089D /* Then */; };
 		6CEF4A6429F9015400D1089D /* OpenAISwift in Frameworks */ = {isa = PBXBuildFile; productRef = 6CEF4A6329F9015400D1089D /* OpenAISwift */; };
 /* End PBXBuildFile section */
 
@@ -66,7 +65,6 @@
 			files = (
 				6CEF4A5129F8EC1900D1089D /* SnapKit in Frameworks */,
 				6CEF4A6429F9015400D1089D /* OpenAISwift in Frameworks */,
-				6CEF4A5429F8EC4A00D1089D /* Then in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -200,7 +198,6 @@
 			name = ChatMSG;
 			packageProductDependencies = (
 				6CEF4A5029F8EC1900D1089D /* SnapKit */,
-				6CEF4A5329F8EC4A00D1089D /* Then */,
 				6CEF4A6329F9015400D1089D /* OpenAISwift */,
 			);
 			productName = ChatMSG;
@@ -233,7 +230,6 @@
 			mainGroup = 6CEF4A2C29F8EAD900D1089D;
 			packageReferences = (
 				6CEF4A4F29F8EC1900D1089D /* XCRemoteSwiftPackageReference "SnapKit" */,
-				6CEF4A5229F8EC4A00D1089D /* XCRemoteSwiftPackageReference "Then" */,
 				6CEF4A6229F9015400D1089D /* XCRemoteSwiftPackageReference "OpenAISwift" */,
 			);
 			productRefGroup = 6CEF4A3629F8EAD900D1089D /* Products */;
@@ -498,14 +494,6 @@
 				minimumVersion = 5.0.0;
 			};
 		};
-		6CEF4A5229F8EC4A00D1089D /* XCRemoteSwiftPackageReference "Then" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/devxoul/Then.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 3.0.0;
-			};
-		};
 		6CEF4A6229F9015400D1089D /* XCRemoteSwiftPackageReference "OpenAISwift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/adamrushy/OpenAISwift.git";
@@ -521,11 +509,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 6CEF4A4F29F8EC1900D1089D /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
-		};
-		6CEF4A5329F8EC4A00D1089D /* Then */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 6CEF4A5229F8EC4A00D1089D /* XCRemoteSwiftPackageReference "Then" */;
-			productName = Then;
 		};
 		6CEF4A6329F9015400D1089D /* OpenAISwift */ = {
 			isa = XCSwiftPackageProductDependency;
