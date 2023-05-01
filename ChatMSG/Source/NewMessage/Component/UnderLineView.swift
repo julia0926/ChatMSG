@@ -6,23 +6,28 @@
 //
 
 import UIKit
-import Then
 
 final class UnderLineView: UIView {
     
     
-    private lazy var titleLabel: UILabel = UILabel().then {
-        $0.textColor = .orange
-        $0.font = .systemFont(ofSize: 17, weight: .semibold)
-    }
+    private lazy var titleLabel: UILabel = {
+        let view = UILabel()
+        view.textColor = .orange
+        view.font = .systemFont(ofSize: 17, weight: .semibold)
+        return view
+    }()
 
-    private lazy var infoTextField: UITextField = UITextField().then {
-        $0.borderStyle = .none
-    }
+    private lazy var infoTextField: UITextField = {
+        let view = UITextField()
+        view.borderStyle = .none
+        return view
+    }()
     
-    private lazy var underLineView: UIView = UIView().then {
-        $0.backgroundColor = .systemGray4
-    }
+    private lazy var underLineView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .systemGray4
+        return view
+    }()
 
         
     override init(frame: CGRect) {

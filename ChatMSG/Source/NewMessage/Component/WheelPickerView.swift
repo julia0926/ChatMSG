@@ -14,22 +14,28 @@ final class WheelPickerView: UIView {
         case number
     }
 
-    private let titleLabel = UILabel().then {
-        $0.textColor = .orange
-        $0.font = .systemFont(ofSize: 18, weight: .semibold)
-    }
+    private let titleLabel: UILabel = {
+        let view = UILabel()
+        view.textColor = .orange
+        view.font = .systemFont(ofSize: 18, weight: .semibold)
+        return view
+    }()
     
     private let messageMinimumLine: [String] = ["100", "200", "300", "400", "500"]
     
-    private lazy var datePickerView: UIDatePicker = UIDatePicker().then {
-        $0.datePickerMode = .date
-        $0.preferredDatePickerStyle = .wheels
-    }
+    private lazy var datePickerView: UIDatePicker = {
+        let view = UIDatePicker()
+        view.datePickerMode = .date
+        view.preferredDatePickerStyle = .wheels
+        return view
+    }()
     
-    private lazy var numberPickerView: UIPickerView = UIPickerView().then {
-        $0.delegate = self
-        $0.dataSource = self
-    }
+    private lazy var numberPickerView: UIPickerView = {
+        let view = UIPickerView()
+        view.delegate = self
+        view.dataSource = self
+        return view
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)

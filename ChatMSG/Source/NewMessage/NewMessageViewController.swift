@@ -11,7 +11,6 @@
 //
 
 import UIKit
-import Then
 
 @MainActor
 protocol NewMessageDisplayLogic: AnyObject {
@@ -50,16 +49,19 @@ final class NewMessageViewController: UIViewController, NewMessageDisplayLogic {
     }
     
     // MARK: -  UIComponent
-    private lazy var typeTextField: UnderLineView = UnderLineView().then {
-        $0.configure(title: "어떤 종류의 메세지인가요?")
-//        self.view.backgroundColor = .blue
-    }
+    private lazy var typeTextField: UnderLineView =  {
+        let view = UnderLineView()
+        view.configure(title: "어떤 종류의 메세지인가요?")
+        return view
+    }()
     
-    private lazy var datePickerView: WheelPickerView = WheelPickerView().then {
-        $0.configure(type: .number,
+    private lazy var datePickerView: WheelPickerView = {
+        let view = WheelPickerView()
+        view.configure(type: .number,
                      title: "메세지의 상황 속 날짜는 언제인가요?")
 //        self.view.backgroundColor = .yellow
-    }
+        return view
+    }()
     
     // MARK: - View lifecycle
     
