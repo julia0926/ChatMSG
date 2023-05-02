@@ -7,6 +7,11 @@
 
 import UIKit
 
+protocol KeywordViewDelegate: AnyObject {
+    func getMessageType(_ type: String)
+    func getWritingStyle(_ style: String)
+}
+
 final class KeywordView: UIView {
     
     enum KeywordType {
@@ -15,8 +20,12 @@ final class KeywordView: UIView {
     }
 
     private var keywordType: KeywordType?
-    private var messageTypeList: [String] = ["감사", "축하", "초대", "거절", "사과", "문의"]
+    private var messageTypeList: [String] = ["🙇🏻‍♀️ 감사", "🎉 축하", "💌 초대장", "🙅‍♀️ 거절", "🥺 사과", "🙏 문의"]
     private var writingStyleList: [String] = ["공손한 존댓말", "편안한 말투의 해체"]
+    
+    private var selectedIndexPath: IndexPath?
+    
+    weak var delegate: KeywordViewDelegate?
     
     private let titleLabel: UILabel = {
         let view = UILabel()
@@ -45,9 +54,9 @@ final class KeywordView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(title: String, type: KeywordType) {
-        self.titleLabel.text = title
+    func configure(type: KeywordType, title: String) {
         self.keywordType = type
+        self.titleLabel.text = title
     }
     
     private func setUpLayout() {
@@ -61,9 +70,7 @@ final class KeywordView: UIView {
         
         self.keywordCollectionView.snp.makeConstraints { make in
             make.top.equalTo(self.titleLabel.snp.bottom).offset(10)
-            make.leading.trailing.equalToSuperview()
-            make.bottom.equalToSuperview()
-            make.height.equalTo(130)
+            make.leading.trailing.bottom.equalToSuperview()
         }
     }
     
@@ -80,32 +87,24 @@ final class KeywordView: UIView {
         let layout = UICollectionViewCompositionalLayout(section: section)
         return layout
     }
-    
  
 }
 
 extension KeywordView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch keywordType {
-        case .messageType:
-            print("messageTypeList")
-            return self.messageTypeList.count
-        case .writingStyle:
-            return self.writingStyleList.count
-        default:
-            return 0
+            case .messageType: return self.messageTypeList.count
+            case .writingStyle: return self.writingStyleList.count
+            default: return 0
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(type: KeywordCell.self, for: indexPath)
         switch keywordType {
-        case .messageType:
-            cell.configure(title: self.messageTypeList[indexPath.row])
-        case .writingStyle:
-            cell.configure(title: self.writingStyleList[indexPath.row])
-        default:
-            cell.configure(title: "")
+            case .messageType: cell.configure(title: self.messageTypeList[indexPath.row])
+            case .writingStyle: cell.configure(title: self.writingStyleList[indexPath.row])
+            default: cell.configure(title: "")
         }
         return cell
     }
@@ -113,7 +112,18 @@ extension KeywordView: UICollectionViewDataSource {
 }
 
 extension KeywordView: UICollectionViewDelegate {
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let idx = selectedIndexPath {
+            collectionView.cellForItem(at: idx)?.backgroundColor = .systemGray5
+        }
+        let cell = collectionView.cellForItem(at: indexPath)
+        cell?.backgroundColor = .orange
+        self.selectedIndexPath = indexPath
+        
+        switch keywordType {
+        case .messageType: delegate?.getMessageType(self.messageTypeList[indexPath.row])
+        case .writingStyle: delegate?.getWritingStyle(self.writingStyleList[indexPath.row])
+        default: return
+        }
+    }
 }
-
-
