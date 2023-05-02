@@ -19,6 +19,10 @@ protocol NewMessageBusinessLogic {
 protocol NewMessageDataStore {
     var receiver: String? { get set }
     var sender: String? { get set }
+    var date: Date? { get set }
+    var type: String? { get set }
+    var writingStyle: String? { get set }
+    var situation: String? { get set }
 }
 
 final class NewMessageInteractor: NewMessageBusinessLogic, NewMessageDataStore {
@@ -28,6 +32,11 @@ final class NewMessageInteractor: NewMessageBusinessLogic, NewMessageDataStore {
     
     var receiver: String?
     var sender: String?
+    var date: Date?
+    var type: String?
+    var writingStyle: String?
+    var situation: String?
+    
     var newMessage: NewMessage?
     
     init(presenter: NewMessagePresentationLogic = NewMessagePresenter(),

@@ -13,8 +13,10 @@
 import UIKit
 
 final class SenderViewController: UIViewController {
+    var interactor: NewMessageBusinessLogic?
     var router: (NewMessageRoutingLogic & NewMessageDataPassing)?
-    
+    var textFieldText: String?
+
     // MARK: - Object lifecycle
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -28,18 +30,14 @@ final class SenderViewController: UIViewController {
     }
     
     // MARK: - Setup
-    
     private func setup() {
-//        let viewController = self
-//        let interactor = SenderReceiverViewControllerInteractor()
-//        let presenter = SenderReceiverViewControllerPresenter()
-//        let router = SenderReceiverViewControllerRouter()
-//        viewController.interactor = interactor
-//        viewController.router = router
-//        interactor.presenter = presenter
-//        presenter.viewController = viewController
-//        router.viewController = viewController
-//        router.dataStore = interactor
+        let viewController = self
+        let interactor = NewMessageInteractor()
+        let router = NewMessageRouter()
+        viewController.interactor = interactor
+        viewController.router = router
+        router.senderVC = viewController
+        router.dataStore = interactor
     }
     
     // MARK: -  UIComponent
@@ -100,27 +98,17 @@ final class SenderViewController: UIViewController {
     }
     
     @objc private func didTapNextButton(_ sender: UIButton) {
-        // TODO: 다음페이지 라우팅
-     
+        if let router = router, let text = self.textFieldText {
+            router.senderRouteToDatePick(text)
+        }
     }
-    
-    // VIP Cycle Start
-//    func doSomething() {
-//        let request = SenderReceiverViewController.Something.Request()
-//        interactor?.doSomething(request: request)
-//    }
-    
-    // MARK: - Display Logic
-  
-//    func displaySomething(viewModel: SenderReceiverViewController.Something.ViewModel) {
-//        //nameTextField.text = viewModel.name
-//    }
+
     
 }
 
 extension SenderViewController: UnderLineViewDelegate {
     func fetchTextFieldText(text: String) {
-        
+        self.textFieldText = text
     }
     
     func updateButtonState(flag: Bool) {

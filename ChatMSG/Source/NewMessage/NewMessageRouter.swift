@@ -14,7 +14,9 @@ import UIKit
 
 protocol NewMessageRoutingLogic {
     func receiverRouteToSender(_ receiver: String)
-//    func senderRouteToDatePicker()
+    func senderRouteToDatePick(_ sender: String)
+    func datePickRouteToMessageType(_ date: Date)
+    func messageTypeRouteToSituation(type: String, writingStyle: String)
 }
 
 protocol NewMessageDataPassing {
@@ -22,18 +24,39 @@ protocol NewMessageDataPassing {
 }
 
 final class NewMessageRouter: NewMessageRoutingLogic, NewMessageDataPassing {
+    
     weak var recevierVC: ReceiverViewController?
+    weak var senderVC: SenderViewController?
+    weak var datePickVC: DatePickViewController?
+    weak var typeVC: MessageTypeViewController?
+    weak var situationVC: SituationViewController?
+    
     var dataStore: NewMessageDataStore?
   
-
-    // MARK: -  Receiver
     func receiverRouteToSender(_ receiver: String) {
-        print("라우터!!")
         let senderVC = SenderViewController()
         recevierVC?.navigationController?.pushViewController(senderVC, animated: true)
         dataStore?.receiver = receiver
     }
     
+    func senderRouteToDatePick(_ sender: String) {
+        let datePickVC = DatePickViewController()
+        senderVC?.navigationController?.pushViewController(datePickVC, animated: true)
+        dataStore?.sender = sender
+    }
+    
+    func datePickRouteToMessageType(_ date: Date) {
+        let typeVC = MessageTypeViewController()
+        datePickVC?.navigationController?.pushViewController(typeVC, animated: true)
+        dataStore?.date = date
+    }
+    
+    func messageTypeRouteToSituation(type: String, writingStyle: String) {
+        let situationVC = SituationViewController()
+        typeVC?.navigationController?.pushViewController(situationVC, animated: true)
+        dataStore?.type = type
+        dataStore?.writingStyle = writingStyle
+    }
     
 //    func senderRouteToDatePicker() {
 //
