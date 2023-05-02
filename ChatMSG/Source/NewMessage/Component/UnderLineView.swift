@@ -8,8 +8,8 @@
 import UIKit
 
 protocol UnderLineViewDelegate: AnyObject {
-    func updateButtonState(flag: Bool)
-    func fetchTextFieldText(text: String)
+    func updateButtonState(_ flag: Bool)
+    func getTextFieldText(_ text: String)
 }
 
 final class UnderLineView: UIView {
@@ -83,15 +83,15 @@ extension UnderLineView: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         self.underLineView.backgroundColor = .lightGray
         if let text = textField.text {
-            delegate?.updateButtonState(flag: text.count >= 3)
+            delegate?.updateButtonState(text.count >= 3)
         }
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if let text = textField.text {
             let newLength = text.count + string.count - range.length
-            delegate?.updateButtonState(flag: newLength >= 3)
-            delegate?.fetchTextFieldText(text: text)
+            delegate?.updateButtonState(newLength >= 3)
+            delegate?.getTextFieldText(text)
         }
         return true
     }

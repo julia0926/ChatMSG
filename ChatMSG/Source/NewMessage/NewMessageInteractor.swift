@@ -35,7 +35,17 @@ final class NewMessageInteractor: NewMessageBusinessLogic, NewMessageDataStore {
     var date: Date?
     var type: String?
     var writingStyle: String?
-    var situation: String?
+    var situation: String? {
+        didSet {
+            self.newMessage = NewMessage(receiver: receiver ?? "",
+                                    sender: sender ?? "",
+                                    date: date ?? Date.now,
+                                    type: type ?? "",
+                                    writingStyle: writingStyle ?? "",
+                                    situation: situation ?? "")
+            print(self.newMessage)
+        }
+    }
     
     var newMessage: NewMessage?
     
@@ -54,7 +64,6 @@ final class NewMessageInteractor: NewMessageBusinessLogic, NewMessageDataStore {
             presenter?.presentNewMessage(response: response)
             
             // TODO: 에러 헨들링
-
         }
     }
 }

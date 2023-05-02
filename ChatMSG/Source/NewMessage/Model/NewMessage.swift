@@ -17,9 +17,7 @@ struct NewMessage {
     ///메세지 유형
     var type: String
     ///어체
-    var stylistic: String
-    ///메세지 길이
-    var length: Int
+    var writingStyle: String
     ///자세한 상황 설명
     var situation: String
 }

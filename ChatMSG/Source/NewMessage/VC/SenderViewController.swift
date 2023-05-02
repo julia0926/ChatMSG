@@ -107,11 +107,11 @@ final class SenderViewController: UIViewController {
 }
 
 extension SenderViewController: UnderLineViewDelegate {
-    func fetchTextFieldText(text: String) {
+    func getTextFieldText(_ text: String) {
         self.textFieldText = text
     }
     
-    func updateButtonState(flag: Bool) {
+    func updateButtonState(_ flag: Bool) {
         let buttonTitleColor: UIColor = flag ? .white : .black
         let buttonBackgroundColor: UIColor = flag ? .orange : .clear
         self.nextButton.setTitleColor(buttonTitleColor, for: .normal)

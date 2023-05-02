@@ -1,5 +1,5 @@
 //
-//  ReceiverViewController.swift
+//  SituationViewController.swift
 //  ChatMSG
 //
 //  Created by Julia on 2023/05/02.
@@ -11,12 +11,13 @@
 //
 
 import UIKit
+import SnapKit
 
-final class ReceiverViewController: UIViewController {
+final class SituationViewController: UIViewController {
     var interactor: NewMessageBusinessLogic?
     var router: (NewMessageRoutingLogic & NewMessageDataPassing)?
-    var textFieldText: String?
-    
+    var textViewText: String?
+
     // MARK: - Object lifecycle
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -36,16 +37,17 @@ final class ReceiverViewController: UIViewController {
         let router = NewMessageRouter()
         viewController.interactor = interactor
         viewController.router = router
-        router.recevierVC = viewController
+        router.situationVC = viewController
         router.dataStore = interactor
     }
     
     // MARK: -  UIComponent
-    private let receiverTextField: UnderLineView =  {
-        let view = UnderLineView()
-        view.configure(title: "받는 사람을 작성해주세요.")
+    private let textView: LineTextView =  {
+        let view = LineTextView()
+        view.configure(title: "메세지 속 상황을 자세히 알려주세요!")
         return view
     }()
+
     
     private let nextButton: UIButton = {
         let btn = UIButton()
@@ -62,26 +64,26 @@ final class ReceiverViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = .systemBackground
+        self.textView.delegate = self
         self.setUpLayout()
         self.settingNextButton()
-        self.receiverTextField.delegate = self
-        self.view.backgroundColor = .systemBackground
     }
     
     private func setUpLayout() {
-        [self.receiverTextField, self.nextButton].forEach {
+        [self.textView, self.nextButton].forEach {
             self.view.addSubview($0)
         }
-    
-        self.receiverTextField.snp.makeConstraints { make in
+        
+        self.textView.snp.makeConstraints { make in
             make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).inset(50)
             make.leading.trailing.equalToSuperview().inset(30)
-            make.height.equalTo(140)
+            make.height.equalTo(220)
         }
         
         self.nextButton.snp.makeConstraints { make in
-            make.top.equalTo(self.receiverTextField.snp.bottom).offset(30)
-            make.trailing.equalTo(self.receiverTextField.snp.trailing)
+            make.top.equalTo(self.textView.snp.bottom).offset(30)
+            make.trailing.equalTo(self.textView.snp.trailing)
             make.width.equalTo(70)
             make.height.equalTo(35)
         }
@@ -97,16 +99,16 @@ final class ReceiverViewController: UIViewController {
     }
     
     @objc private func didTapNextButton(_ sender: UIButton) {
-        if let router = router, let text = self.textFieldText {
-            router.receiverRouteToSender(text)
+        if let router = router, let text = self.textViewText {
+            router.situationRouteToResult(situation: text)
+            print("route!!")
         }
     }
-    
 }
 
-extension ReceiverViewController: UnderLineViewDelegate {
-    func getTextFieldText(_ text: String) {
-        self.textFieldText = text
+extension SituationViewController: LineTextViewDelegate {
+    func getTextViewText(_ text: String) {
+        self.textViewText = text
     }
     
     func updateButtonState(_ flag: Bool) {
@@ -116,5 +118,4 @@ extension ReceiverViewController: UnderLineViewDelegate {
         self.nextButton.backgroundColor = buttonBackgroundColor
         self.nextButton.isEnabled = flag
     }
-    
 }
