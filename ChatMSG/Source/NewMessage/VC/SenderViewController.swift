@@ -32,8 +32,8 @@ final class SenderViewController: UIViewController {
     // MARK: - Setup
     private func setup() {
         let viewController = self
-        let interactor = NewMessageInteractor()
-        let router = NewMessageRouter()
+        let interactor = NewMessageInteractor.shared
+        let router = NewMessageRouter.shared
         viewController.interactor = interactor
         viewController.router = router
         router.senderVC = viewController

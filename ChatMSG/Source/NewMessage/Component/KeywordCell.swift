@@ -30,7 +30,6 @@ final class KeywordCell: UICollectionViewCell {
     
     func configure(title: String) {
         self.titleLabel.text = title
-        print(title)
     }
     
     private func setUp() {

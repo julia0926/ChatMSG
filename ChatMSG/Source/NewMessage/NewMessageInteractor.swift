@@ -13,7 +13,7 @@
 import UIKit
 
 protocol NewMessageBusinessLogic {
-    func makeNewMessage(request: MakeMessage.makeNewMessage.Request)
+    func requestNewMessage(request: MakeMessage.makeNewMessage.Request)
 }
 
 protocol NewMessageDataStore {
@@ -26,29 +26,19 @@ protocol NewMessageDataStore {
 }
 
 final class NewMessageInteractor: NewMessageBusinessLogic, NewMessageDataStore {
-
-    var presenter: NewMessagePresentationLogic?
-    private var worker: NewMessageWorkerProtocol?
+    
+    static let shared = NewMessageInteractor()
     
     var receiver: String?
     var sender: String?
     var date: Date?
     var type: String?
     var writingStyle: String?
-    var situation: String? {
-        didSet {
-            self.newMessage = NewMessage(receiver: receiver ?? "",
-                                    sender: sender ?? "",
-                                    date: date ?? Date.now,
-                                    type: type ?? "",
-                                    writingStyle: writingStyle ?? "",
-                                    situation: situation ?? "")
-            print(self.newMessage)
-        }
-    }
-    
-    var newMessage: NewMessage?
-    
+    var situation: String? 
+
+    var presenter: NewMessagePresentationLogic?
+    private var worker: NewMessageWorkerProtocol?
+        
     init(presenter: NewMessagePresentationLogic = NewMessagePresenter(),
          worker: NewMessageWorker = NewMessageWorker()) {
         self.presenter = presenter
@@ -56,7 +46,7 @@ final class NewMessageInteractor: NewMessageBusinessLogic, NewMessageDataStore {
     }
   
     // MARK: - fetchNewMessage
-    func makeNewMessage(request: MakeMessage.makeNewMessage.Request) {
+    func requestNewMessage(request: MakeMessage.makeNewMessage.Request) {
         guard let worker = worker else { return }
         Task {
             let message = try await worker.requestNewMessage(request)
@@ -66,4 +56,14 @@ final class NewMessageInteractor: NewMessageBusinessLogic, NewMessageDataStore {
             // TODO: 에러 헨들링
         }
     }
+    
+    func makeNewMessage() -> NewMessage {
+        return .init(receiver: self.receiver ?? "",
+                     sender: self.sender ?? "",
+                     date: self.date ?? .now,
+                     type: self.type ?? "",
+                     writingStyle: self.writingStyle ?? "",
+                     situation: self.situation ?? "")
+    }
+
 }

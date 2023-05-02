@@ -26,18 +26,22 @@ protocol NewMessageDataPassing {
 
 final class NewMessageRouter: NewMessageRoutingLogic, NewMessageDataPassing {
     
+    static let shared = NewMessageRouter()
+    
     weak var recevierVC: ReceiverViewController?
     weak var senderVC: SenderViewController?
     weak var datePickVC: DatePickViewController?
     weak var typeVC: MessageTypeViewController?
     weak var situationVC: SituationViewController?
+    weak var resultVC: ResultViewController?
     
     var dataStore: NewMessageDataStore?
-  
+    
     func receiverRouteToSender(_ receiver: String) {
         let senderVC = SenderViewController()
         recevierVC?.navigationController?.pushViewController(senderVC, animated: true)
         dataStore?.receiver = receiver
+        senderVC.dataStore = dataStore
     }
     
     func senderRouteToDatePick(_ sender: String) {
@@ -65,19 +69,6 @@ final class NewMessageRouter: NewMessageRoutingLogic, NewMessageDataPassing {
         dataStore?.situation = situation
     }
     
-//    func senderRouteToDatePicker() {
-//
-//    }
-    
-//    func routeToSomewhere() {
-//        let destinationVC = UIViewController()
-//        guard var destinationDS = destinationVC.router?.dataStore else { return }
-//        guard let dataStore = dataStore else { return }
-//        guard let viewController = viewController else { return }
-//        passDataToSomewhere(source: dataStore, destination: &destinationDS)
-//        navigateToSomewhere(source: viewController, destination: destinationVC)
-//    }
-
   // MARK: - Navigation
   
 
