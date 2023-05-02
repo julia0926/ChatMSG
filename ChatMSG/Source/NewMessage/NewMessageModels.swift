@@ -12,7 +12,7 @@
 
 import UIKit
 
-enum NewMessage {
+enum MakeMessage {
     // MARK: -  Use Cases
       enum makeNewMessage {
           

@@ -13,18 +13,22 @@
 import UIKit
 
 protocol NewMessageBusinessLogic {
-    func makeNewMessage(request: NewMessage.makeNewMessage.Request)
+    func makeNewMessage(request: MakeMessage.makeNewMessage.Request)
 }
 
 protocol NewMessageDataStore {
-    var newMessage: String? { get }
+    var receiver: String? { get set }
+    var sender: String? { get set }
 }
 
 final class NewMessageInteractor: NewMessageBusinessLogic, NewMessageDataStore {
+
     var presenter: NewMessagePresentationLogic?
     private var worker: NewMessageWorkerProtocol?
     
-    var newMessage: String?
+    var receiver: String?
+    var sender: String?
+    var newMessage: NewMessage?
     
     init(presenter: NewMessagePresentationLogic = NewMessagePresenter(),
          worker: NewMessageWorker = NewMessageWorker()) {
@@ -33,11 +37,11 @@ final class NewMessageInteractor: NewMessageBusinessLogic, NewMessageDataStore {
     }
   
     // MARK: - fetchNewMessage
-    func makeNewMessage(request: NewMessage.makeNewMessage.Request) {
+    func makeNewMessage(request: MakeMessage.makeNewMessage.Request) {
         guard let worker = worker else { return }
         Task {
             let message = try await worker.requestNewMessage(request)
-            let response = NewMessage.makeNewMessage.Response(newMessage: message)
+            let response = MakeMessage.makeNewMessage.Response(newMessage: message)
             presenter?.presentNewMessage(response: response)
             
             // TODO: 에러 헨들링

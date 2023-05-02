@@ -13,7 +13,7 @@
 import UIKit
 
 protocol NewMessageWorkerProtocol {
-    func requestNewMessage(_ message: NewMessage.makeNewMessage.Request) async throws -> String
+    func requestNewMessage(_ message: MakeMessage.makeNewMessage.Request) async throws -> String
 }
 
 final class NewMessageWorker: NewMessageWorkerProtocol {
@@ -23,14 +23,14 @@ final class NewMessageWorker: NewMessageWorkerProtocol {
         self.datasource = datasource
     }
     
-    func requestNewMessage(_ request: NewMessage.makeNewMessage.Request) async throws -> String {
+    func requestNewMessage(_ request: MakeMessage.makeNewMessage.Request) async throws -> String {
         let output = translate(request)
         let result = try await datasource.getMessage(request: output)
         print("result", result)
         return result
     }
         
-    func translate(_ model: NewMessage.makeNewMessage.Request) -> OpenAIRequest {
+    func translate(_ model: MakeMessage.makeNewMessage.Request) -> OpenAIRequest {
         return OpenAIRequest(type: model.type,
                              receiver: model.receiver,
                              sender: model.sender,

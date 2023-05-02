@@ -7,34 +7,40 @@
 
 import UIKit
 
+protocol UnderLineViewDelegate: AnyObject {
+    func updateButtonState(flag: Bool)
+    func fetchTextFieldText(text: String)
+}
+
 final class UnderLineView: UIView {
     
-    private lazy var titleLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let view = UILabel()
         view.textColor = .darkGray
         view.font = .systemFont(ofSize: 18, weight: .semibold)
         return view
     }()
 
-    private lazy var infoTextField: UITextField = {
+    private let infoTextField: UITextField = {
         let view = UITextField()
         view.borderStyle = .none
         view.clearButtonMode = .whileEditing
         return view
     }()
     
-    private lazy var underLineView: UIView = {
+    private let underLineView: UIView = {
         let view = UIView()
         view.backgroundColor = .systemGray4
         return view
     }()
+    
+    weak var delegate: UnderLineViewDelegate?
         
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.setUpLayout()
         self.infoTextField.delegate = self
     }
-
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -66,6 +72,7 @@ final class UnderLineView: UIView {
             make.height.equalTo(2)
         }
     }
+
 }
 
 extension UnderLineView: UITextFieldDelegate {
@@ -75,6 +82,18 @@ extension UnderLineView: UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         self.underLineView.backgroundColor = .lightGray
+        if let text = textField.text {
+            delegate?.updateButtonState(flag: text.count >= 3)
+        }
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if let text = textField.text {
+            let newLength = text.count + string.count - range.length
+            delegate?.updateButtonState(flag: newLength >= 3)
+            delegate?.fetchTextFieldText(text: text)
+        }
+        return true
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

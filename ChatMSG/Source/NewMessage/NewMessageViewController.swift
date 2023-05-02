@@ -14,7 +14,7 @@ import UIKit
 
 @MainActor
 protocol NewMessageDisplayLogic: AnyObject {
-    func displaySomething(viewModel: NewMessage.makeNewMessage.ViewModel)
+    func displaySomething(viewModel: MakeMessage.makeNewMessage.ViewModel)
 }
 
 final class NewMessageViewController: UIViewController, NewMessageDisplayLogic {
@@ -37,15 +37,15 @@ final class NewMessageViewController: UIViewController, NewMessageDisplayLogic {
     
     private func setup() {
         let viewController = self
-        let interactor = NewMessageInteractor()
-        let presenter = NewMessagePresenter()
-        let router = NewMessageRouter()
-        viewController.interactor = interactor
-        viewController.router = router
-        interactor.presenter = presenter
-        presenter.viewController = viewController
-        router.viewController = viewController
-        router.dataStore = interactor
+//        let interactor = NewMessageInteractor()
+//        let presenter = NewMessagePresenter()
+//        let router = NewMessageRouter()
+//        viewController.interactor = interactor
+//        viewController.router = router
+//        interactor.presenter = presenter
+//        presenter.viewController = viewController
+//        router.viewController = viewController
+//        router.dataStore = interactor
     }
     
     // MARK: -  UIComponent
@@ -57,9 +57,15 @@ final class NewMessageViewController: UIViewController, NewMessageDisplayLogic {
     
     private lazy var datePickerView: WheelPickerView = {
         let view = WheelPickerView()
-        view.configure(type: .number,
+        view.configure(type: .date,
                      title: "메세지의 상황 속 날짜는 언제인가요?")
 //        self.view.backgroundColor = .yellow
+        return view
+    }()
+    
+    private lazy var keywordView: KeywordView = {
+        let view = KeywordView()
+        view.configure(title: "메세지의 어체를 선택해주세요.", type: .messageType)
         return view
     }()
     
@@ -70,11 +76,14 @@ final class NewMessageViewController: UIViewController, NewMessageDisplayLogic {
         self.view.backgroundColor = .systemBackground
         self.setUpLayout()
         doSomething()
-        //test
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
     }
     
     private func setUpLayout() {
-        [self.typeTextField, self.datePickerView].forEach {
+        [self.typeTextField, self.datePickerView, self.keywordView].forEach {
             self.view.addSubview($0)
         }
         
@@ -87,13 +96,19 @@ final class NewMessageViewController: UIViewController, NewMessageDisplayLogic {
         self.datePickerView.snp.makeConstraints { make in
             make.top.equalTo(self.typeTextField.snp.bottom).offset(20)
             make.leading.trailing.equalToSuperview().inset(20)
-            make.height.equalTo(90)
+            make.height.equalTo(120)
+        }
+        
+        self.keywordView.snp.makeConstraints { make in
+            make.top.equalTo(self.datePickerView.snp.bottom).offset(20)
+            make.leading.trailing.equalToSuperview().inset(20)
+
         }
     }
     
     // VIP Cycle Start
     func doSomething() {
-        let request = NewMessage.makeNewMessage.Request(type: "성적 문의",
+        let request = MakeMessage.makeNewMessage.Request(type: "성적 문의",
                                                         receiver: "000교수님",
                                                         sender: "IT융합자율학부 000",
                                                         date: Date.now,
@@ -106,7 +121,7 @@ final class NewMessageViewController: UIViewController, NewMessageDisplayLogic {
     
     // MARK: - Display Logic
   
-    func displaySomething(viewModel: NewMessage.makeNewMessage.ViewModel) {
+    func displaySomething(viewModel: MakeMessage.makeNewMessage.ViewModel) {
         //nameTextField.text = viewModel.name
         print(viewModel)
     }

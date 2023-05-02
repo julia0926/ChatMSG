@@ -77,7 +77,7 @@ final class MessageListViewController: UIViewController, MessageListDisplayLogic
     
     @objc func didTapNewMessageButton() {
         // TODO: 라우터에 전달
-        self.navigationController?.pushViewController(NewMessageViewController(), animated: true)
+        self.navigationController?.pushViewController(ReceiverViewController(), animated: true)
     }
     
     private func setUpLayout() {

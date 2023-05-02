@@ -13,7 +13,7 @@
 import UIKit
 
 protocol NewMessagePresentationLogic {
-    func presentNewMessage(response: NewMessage.makeNewMessage.Response)
+    func presentNewMessage(response: MakeMessage.makeNewMessage.Response)
 }
 
 final class NewMessagePresenter: NewMessagePresentationLogic {
@@ -21,8 +21,8 @@ final class NewMessagePresenter: NewMessagePresentationLogic {
   
     // MARK: -  Do something
     
-    func presentNewMessage(response: NewMessage.makeNewMessage.Response) {
-        let viewModel = NewMessage.makeNewMessage.ViewModel(displayedMessage: response.newMessage)
+    func presentNewMessage(response: MakeMessage.makeNewMessage.Response) {
+        let viewModel = MakeMessage.makeNewMessage.ViewModel(displayedMessage: response.newMessage)
         Task { @MainActor in
             viewController?.displaySomething(viewModel: viewModel)
         }

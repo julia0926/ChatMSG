@@ -13,7 +13,8 @@
 import UIKit
 
 protocol NewMessageRoutingLogic {
-  //func routeToSomewhere()
+    func receiverRouteToSender(_ receiver: String)
+//    func senderRouteToDatePicker()
 }
 
 protocol NewMessageDataPassing {
@@ -21,11 +22,22 @@ protocol NewMessageDataPassing {
 }
 
 final class NewMessageRouter: NewMessageRoutingLogic, NewMessageDataPassing {
-    weak var viewController: NewMessageViewController?
+    weak var recevierVC: ReceiverViewController?
     var dataStore: NewMessageDataStore?
   
 
-    // MARK: -  Routing
+    // MARK: -  Receiver
+    func receiverRouteToSender(_ receiver: String) {
+        print("라우터!!")
+        let senderVC = SenderViewController()
+        recevierVC?.navigationController?.pushViewController(senderVC, animated: true)
+        dataStore?.receiver = receiver
+    }
+    
+    
+//    func senderRouteToDatePicker() {
+//
+//    }
     
 //    func routeToSomewhere() {
 //        let destinationVC = UIViewController()
@@ -38,13 +50,8 @@ final class NewMessageRouter: NewMessageRoutingLogic, NewMessageDataPassing {
 
   // MARK: - Navigation
   
-//    func navigateToSomewhere(source: NewMessageViewController, destination: SomewhereViewController) {
-//        source.show(destination, sender: nil)
-//    }
+
   
   // MARK: - Passing data
   
-//    func passDataToSomewhere(source: NewMessageDataStore, destination: inout SomewhereDataStore) {
-//        destination.name = source.name
-//    }
 }
