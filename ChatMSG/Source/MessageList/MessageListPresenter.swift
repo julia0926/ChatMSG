@@ -21,8 +21,8 @@ final class MessageListPresenter: MessageListPresentationLogic {
   
     func presentMessageList(response: MessageList.Something.Response) {
         let displayedMessageList: [MessageList.Something.ViewModel.DisplayedMessage] = response.messageList.map {
-            return MessageList.Something.ViewModel.DisplayedMessage(type: $0.type,
-                                                                    receiver: "To: \($0.receiver)",
+            return MessageList.Something.ViewModel.DisplayedMessage(imoji: $0.imoji,
+                                                                    typeAndReceiver: "[\($0.type)] \($0.receiver)",
                                                                     createdDate: $0.createdDate.slashFormat())
         }
         let viewModel = MessageList.Something.ViewModel(displayedMessageList: displayedMessageList)

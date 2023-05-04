@@ -2,10 +2,11 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21754" systemVersion="22A400" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Message" representedClassName="Message" syncable="YES" codeGenerationType="class">
         <attribute name="createdDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="imoji" optional="YES" attributeType="String"/>
         <attribute name="messageDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="receiver" optional="YES" attributeType="String"/>
+        <attribute name="result" optional="YES" attributeType="String"/>
         <attribute name="sender" optional="YES" attributeType="String"/>
-        <attribute name="situation" optional="YES" attributeType="String"/>
         <attribute name="type" optional="YES" attributeType="String"/>
     </entity>
 </model>

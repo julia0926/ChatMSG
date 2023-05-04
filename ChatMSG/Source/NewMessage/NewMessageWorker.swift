@@ -13,8 +13,8 @@
 import UIKit
 
 protocol NewMessageWorkerProtocol {
-    func requestNewMessage(_ message: MakeMessage.makeNewMessage.Request) async throws -> String
-    func saveNewMessage(_ request: MakeMessage.makeNewMessage.Request) async
+    func requestNewMessage(_ message: MakeMessage.makeNewMessage.Request.newMessage) async throws -> String
+    func saveNewMessage(_ request: MakeMessage.makeNewMessage.Request.saveMessage) async
 }
 
 final class NewMessageWorker: NewMessageWorkerProtocol {
@@ -25,14 +25,14 @@ final class NewMessageWorker: NewMessageWorkerProtocol {
     }
     
     // MARK: - Request
-    func requestNewMessage(_ request: MakeMessage.makeNewMessage.Request) async throws -> String {
+    func requestNewMessage(_ request: MakeMessage.makeNewMessage.Request.newMessage) async throws -> String {
         let output = translate(request)
         let result = try await datasource.getMessage(request: output)
         return result
     }
         
-    func translate(_ model: MakeMessage.makeNewMessage.Request) -> OpenAIRequest {
-        return OpenAIRequest(type: model.type,
+    func translate(_ model: MakeMessage.makeNewMessage.Request.newMessage) -> OpenAIRequest {
+        return OpenAIRequest(type: removeImoji(model.type),
                              receiver: model.receiver,
                              sender: model.sender,
                              date: model.date.hangleFormat(),
@@ -41,11 +41,27 @@ final class NewMessageWorker: NewMessageWorkerProtocol {
     }
     
     // MARK: - Save
-    func saveNewMessage(_ request: MakeMessage.makeNewMessage.Request) async {
-        await Message.saveMessage(receiver: request.receiver,
-                                  sender: request.sender,
-                                  messageDate: request.date,
-                                  situation: request.situation,
-                                  type: request.type)
+    func saveNewMessage(_ model: MakeMessage.makeNewMessage.Request.saveMessage) async {
+        await Message.saveMessage(receiver: model.receiver,
+                                  sender: model.sender,
+                                  messageDate: model.date,
+                                  result: model.result,
+                                  type: removeImoji(model.type),
+                                  imoji: getImoji(model.type))
+        
+    }
+    
+    private func removeImoji(_ type: String) -> String {
+        if let splitStr: String.SubSequence = type.split(separator: " ").last {
+            return String(splitStr)
+        }
+        return ""
+    }
+    
+    private func getImoji(_ type: String) -> String {
+        if let splitStr: String.SubSequence = type.split(separator: " ").first {
+            return String(splitStr)
+        }
+        return ""
     }
 }

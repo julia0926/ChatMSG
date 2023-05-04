@@ -31,8 +31,12 @@ struct MessageItem {
         return message.type ?? ""
     }
     
-    var situation: String {
-        return message.situation ?? ""
+    var imoji: String {
+        return message.imoji ?? ""
+    }
+    
+    var result: String {
+        return message.result ?? ""
     }
     
     var messageDate: Date {

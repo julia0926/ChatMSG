@@ -12,9 +12,9 @@ final class MessageListCell: UITableViewCell {
         
     private let messageTypeLabel: UILabel = {
         let view = UILabel()
-        view.font = .systemFont(ofSize: 15, weight: .semibold)
+        view.font = .systemFont(ofSize: 20)
         view.layer.borderWidth = 1.5
-        view.layer.borderColor = UIColor.lightGray.cgColor
+        view.layer.borderColor = UIColor.systemGray4.cgColor
         view.textAlignment = .center
         view.layer.cornerRadius = 30
         return view
@@ -29,7 +29,7 @@ final class MessageListCell: UITableViewCell {
     
     private let receiverLabel: UILabel = {
         let view = UILabel()
-        view.font = .systemFont(ofSize: 17, weight: .bold)
+        view.font = .systemFont(ofSize: 17, weight: .semibold)
         return view
     }()
     
@@ -45,9 +45,9 @@ final class MessageListCell: UITableViewCell {
     }
     
     func configure(data: MessageList.Something.ViewModel.DisplayedMessage) {
-        self.messageTypeLabel.text = data.type
+        self.messageTypeLabel.text = data.imoji
         self.writedDateLabel.text = data.createdDate
-        self.receiverLabel.text = data.receiver
+        self.receiverLabel.text = data.typeAndReceiver
     }
     
     private func setUpLayout() {

@@ -32,7 +32,7 @@ enum MessageDetail {
             struct displayedMessage {
                 var title: String
                 var description: String
-                var situation: String
+                var result: String
             }
             
             struct Error {

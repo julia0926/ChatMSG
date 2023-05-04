@@ -26,8 +26,8 @@ enum MessageList {
           
         struct ViewModel {
             struct DisplayedMessage {
-                var type: String
-                var receiver: String
+                var imoji: String
+                var typeAndReceiver: String
                 var createdDate: String
             }
             

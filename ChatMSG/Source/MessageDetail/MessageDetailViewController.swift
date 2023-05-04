@@ -131,7 +131,7 @@ final class MessageDetailViewController: UIViewController, MessageDetailDisplayL
     func displaySomething(viewModel: MessageDetail.Something.ViewModel) {
         self.titleLabel.text = viewModel.displayedMessage.title
         self.descriptionLabel.text = viewModel.displayedMessage.description
-        self.messageTextView.text = viewModel.displayedMessage.situation
+        self.messageTextView.text = viewModel.displayedMessage.result
     }
     
 }

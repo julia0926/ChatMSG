@@ -25,7 +25,7 @@ final class MessageDetailPresenter: MessageDetailPresentationLogic {
         let description: String = "\(message.sender)로서 보낸 \(message.type) 메세지 \n\(message.createdDate.hangleFormat())에 보냈어요!"
         let displayedMessage = MessageDetail.Something.ViewModel.displayedMessage(title: title,
                                                                                   description: description,
-                                                                                  situation: message.situation)
+                                                                                  result: message.result)
         let viewModel = MessageDetail.Something.ViewModel(displayedMessage: displayedMessage)
         Task { @MainActor in
             viewController?.displaySomething(viewModel: viewModel)

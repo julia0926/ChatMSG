@@ -11,7 +11,8 @@ struct MessageInfo {
     var receiver: String
     var sender: String
     var type: String
-    var situation: String
+    var imoji: String
+    var result: String
     var messageDate: Date
     var createdDate: Date
 }

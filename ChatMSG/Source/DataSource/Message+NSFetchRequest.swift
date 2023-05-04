@@ -52,16 +52,18 @@ extension Message {
     static func saveMessage(receiver: String,
                             sender: String,
                             messageDate: Date,
-                            situation: String,
-                            type: String) async {
+                            result: String,
+                            type: String,
+                            imoji: String) async {
         await backgroundContext.perform {
             let message = Message(context: backgroundContext)
             message.receiver = receiver
             message.sender = sender
             message.messageDate = messageDate
-            message.situation = situation
+            message.result = result
             message.type = type
             message.createdDate = .now
+            message.imoji = imoji
             do {
                 try backgroundContext.save()
                 print("saveMessage!!!!")

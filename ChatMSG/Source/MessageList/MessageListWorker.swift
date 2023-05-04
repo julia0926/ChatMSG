@@ -30,7 +30,8 @@ final class MessageListWorker: MessageListWorkerProtocol {
         return .init(receiver: data.receiver,
                      sender: data.sender,
                      type: data.type,
-                     situation: data.situation,
+                     imoji: data.imoji,
+                     result: data.result,
                      messageDate: data.messageDate,
                      createdDate: data.createdDate)
     }

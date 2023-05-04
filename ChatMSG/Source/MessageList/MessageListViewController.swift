@@ -100,7 +100,7 @@ final class MessageListViewController: UIViewController, MessageListDisplayLogic
         
         self.messageListTableView.snp.makeConstraints { make in
             make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
-            make.leading.trailing.bottom.equalToSuperview().inset(20)
+            make.leading.trailing.bottom.equalToSuperview().inset(10)
         }
     }
     

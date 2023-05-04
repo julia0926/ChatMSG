@@ -17,18 +17,28 @@ enum MakeMessage {
       enum makeNewMessage {
           
         struct Request {
-            var receiver: String
-            ///송신자
-            var sender: String
-            ///메세지에 담길 날짜
-            var date: Date
-            ///메세지 유형
-            var type: String
-            ///어체
-            var writingStyle: String
-            ///자세한 상황 설명
-            var situation: String
+            struct newMessage {
+                var receiver: String
+                ///송신자
+                var sender: String
+                ///메세지에 담길 날짜
+                var date: Date
+                ///메세지 유형
+                var type: String
+                ///어체
+                var writingStyle: String
+                ///자세한 상황 설명
+                var situation: String
+            }
             
+            struct saveMessage {
+                var receiver: String
+                var sender: String
+                var date: Date
+                var type: String
+                var result: String
+                var imoji: String
+            }
         }
 
         struct Response {
