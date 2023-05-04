@@ -154,8 +154,7 @@ final class ResultViewController: UIViewController, NewMessageDisplayLogic {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .systemBackground
-        self.view.bringSubviewToFront(self.indicatorStackView)
+        self.configureUI()
         self.setUpLayout()
         self.requestMessage()
         self.configureButton()
@@ -166,6 +165,13 @@ final class ResultViewController: UIViewController, NewMessageDisplayLogic {
         self.shareButton.addTarget(self, action: #selector(tappedShareButton), for: .touchUpInside)
         self.retryButton.addTarget(self, action: #selector(tappedRetryButton), for: .touchUpInside)
         self.saveAndMainButton.addTarget(self, action: #selector(tappedSaveAndMainButton), for: .touchUpInside)
+    }
+    
+    // VIP Cycle Start
+    func requestMessage() {
+        self.componentIsHidden = true
+        self.indicatorView.startAnimating()
+        self.interactor?.requestNewMessage()
     }
     
     @objc private func tappedCopyButton() {
@@ -190,12 +196,6 @@ final class ResultViewController: UIViewController, NewMessageDisplayLogic {
         self.interactor?.saveNewMessage()
     }
     
-    // VIP Cycle Start
-    func requestMessage() {
-        self.componentIsHidden = true
-        self.indicatorView.startAnimating()
-        self.interactor?.requestNewMessage()
-    }
     
     // MARK: - Display Logic
   
@@ -269,22 +269,29 @@ extension ResultViewController {
     }
     
     private func showToast(_ message : String, withDuration: Double, delay: Double) {
-        let toastLabel = UILabel(frame: CGRect(x: self.view.frame.size.width/2 - 75, y: self.view.frame.size.height-100, width: 160, height: 40))
-        toastLabel.backgroundColor = UIColor.systemBlue
-        toastLabel.textColor = UIColor.white
-        toastLabel.font = UIFont.systemFont(ofSize: 13.0, weight: .semibold)
-        toastLabel.textAlignment = .center
-        toastLabel.text = message
-        toastLabel.alpha = 1.0
-        toastLabel.layer.cornerRadius = 16
-        toastLabel.clipsToBounds  =  true
-            
-        self.view.addSubview(toastLabel)
-            
-        UIView.animate(withDuration: withDuration, delay: delay, options: .curveEaseOut, animations: {
-            toastLabel.alpha = 0.0
-        }, completion: {(isCompleted) in
-            toastLabel.removeFromSuperview()
-        })
+        let label = UILabel(frame: CGRect(x: self.view.frame.size.width/2 - 75, y: self.view.frame.size.height-100, width: 160, height: 40))
+        label.backgroundColor = UIColor.systemBlue
+        label.textColor = UIColor.white
+        label.font = UIFont.systemFont(ofSize: 13.0, weight: .semibold)
+        label.textAlignment = .center
+        label.text = message
+        label.alpha = 1.0
+        label.layer.cornerRadius = 16
+        label.clipsToBounds  =  true
+        
+        self.view.addSubview(label)
+
+        UIView.animate(withDuration: withDuration, delay: delay, options: .curveEaseOut) {
+            label.alpha = 0.0
+        } completion: { _ in
+            label.removeFromSuperview()
+        }
+    }
+    
+    private func configureUI() {
+        self.view.bringSubviewToFront(self.indicatorStackView)
+        self.view.backgroundColor = .systemBackground
+        self.navigationController?.navigationBar.topItem?.title = ""
+        self.navigationController?.navigationBar.tintColor = .orange
     }
 }
