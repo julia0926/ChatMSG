@@ -155,7 +155,7 @@ extension MessageDetailViewController {
         self.messageTextView.snp.makeConstraints { make in
             make.top.equalTo(self.descriptionLabel.snp.bottom).offset(20)
             make.leading.trailing.equalToSuperview().inset(30)
-            make.height.equalTo(300)
+            make.height.equalTo(400)
         }
         
         self.copyButton.snp.makeConstraints { make in

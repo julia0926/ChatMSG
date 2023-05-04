@@ -14,6 +14,7 @@ import UIKit
 
 protocol MessageListRoutingLogic {
     func routeToMessageDetail(index: Int)
+    func routeToNewMessage()
 }
 
 protocol MessageListDataPassing {
@@ -21,22 +22,30 @@ protocol MessageListDataPassing {
 }
 
 final class MessageListRouter: MessageListRoutingLogic, MessageListDataPassing {
-    weak var viewController: MessageListViewController?
+    
+    weak var listVC: MessageListViewController?
+    weak var newMessageVC: ReceiverViewController?
     var dataStore: MessageListDataStore?
   
 
     // MARK: -  Routing
     
     func routeToMessageDetail(index: Int) {
-        let destinationVC = MessageDetailViewController()
+        let detailVC = MessageDetailViewController()
         guard let dataStore = dataStore,
-              var detailDataStore = destinationVC.router?.dataStore,
-              let vc = viewController else {
+              var detailDataStore = detailVC.router?.dataStore,
+              let vc = listVC else {
             return
         }
-        vc.navigationController?.pushViewController(destinationVC, animated: true)
+        vc.navigationController?.pushViewController(detailVC, animated: true)
         detailDataStore.message = dataStore.messageList[index]
     }
 
-  
+    func routeToNewMessage() {
+        let newMessageVC = ReceiverViewController()
+        guard let vc = listVC else { return }
+        vc.navigationController?.pushViewController(newMessageVC, animated: true)
+
+    }
+    
 }

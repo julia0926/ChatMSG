@@ -52,7 +52,7 @@ final class MessageListViewController: UIViewController, MessageListDisplayLogic
         viewController.router = router
         interactor.presenter = presenter
         presenter.viewController = viewController
-        router.viewController = viewController
+        router.listVC = viewController
         router.dataStore = interactor
     }
     
@@ -89,8 +89,9 @@ final class MessageListViewController: UIViewController, MessageListDisplayLogic
     }
     
     @objc func didTapNewMessageButton() {
-        // TODO: 라우터에 전달
-        self.navigationController?.pushViewController(ReceiverViewController(), animated: true)
+        if let router = router {
+            router.routeToNewMessage()
+        }
     }
     
     private func setUpLayout() {
