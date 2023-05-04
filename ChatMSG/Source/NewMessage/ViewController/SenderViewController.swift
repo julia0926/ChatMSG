@@ -122,6 +122,7 @@ extension SenderViewController {
     
     private func configureUI() {
         self.view.backgroundColor = .systemBackground
+        self.navigationItem.title = ". 🐢 . . ."
         self.navigationController?.navigationBar.topItem?.title = ""
         self.navigationController?.navigationBar.tintColor = .orange
     }

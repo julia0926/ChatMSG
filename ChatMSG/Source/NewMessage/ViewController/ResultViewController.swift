@@ -291,6 +291,7 @@ extension ResultViewController {
     private func configureUI() {
         self.view.bringSubviewToFront(self.indicatorStackView)
         self.view.backgroundColor = .systemBackground
+        self.navigationItem.title = "🚀 결과 메세지"
         self.navigationController?.navigationBar.topItem?.title = ""
         self.navigationController?.navigationBar.tintColor = .orange
     }
