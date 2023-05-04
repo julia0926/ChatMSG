@@ -21,7 +21,7 @@ enum MessageDetail {
         }
 
         struct Response {
-            var message: MessageInfo
+            var message: MessageItem
             
             struct Error {
                 var message: String

@@ -14,14 +14,15 @@ import UIKit
 
 protocol MessageListBusinessLogic {
     func fetchMessageList()
+    func deleteMessage(_ index: Int)
 }
 
 protocol MessageListDataStore {
-    var messageList: [MessageInfo] { get set }
+    var messageList: [MessageItem] { get set }
 }
 
 final class MessageListInteractor: MessageListBusinessLogic, MessageListDataStore {
-    var messageList: [MessageInfo] = []
+    var messageList: [MessageItem] = []
     var presenter: MessageListPresentationLogic?
     private var worker: MessageListWorkerProtocol?
   
@@ -36,10 +37,21 @@ final class MessageListInteractor: MessageListBusinessLogic, MessageListDataStor
     func fetchMessageList() {
         guard let worker = worker else { return }
         Task {
-            let messages: [MessageInfo] = await worker.fetchMessage()
+            let messages: [MessageItem] = await worker.fetchMessageList()
             self.messageList = messages
             let response = MessageList.Something.Response(messageList: self.messageList)
             presenter?.presentMessageList(response: response)
+        }
+    }
+    
+    func deleteMessage(_ index: Int) {
+        guard let worker = worker else { return }
+        Task {
+            if !messageList.isEmpty {
+                await worker.removeMessage(self.messageList[index])
+            } else {
+                // TODO: 비어있을 때 에러 핸들링
+            }
         }
     }
 }

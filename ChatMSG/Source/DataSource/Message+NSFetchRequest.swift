@@ -66,7 +66,6 @@ extension Message {
             message.imoji = imoji
             do {
                 try backgroundContext.save()
-                print("saveMessage!!!!")
             } catch {
                 print(error.localizedDescription)
             }
@@ -75,12 +74,14 @@ extension Message {
     
     static func deleteMessage(message: MessageItem) async {
         await backgroundContext.perform {
-            let diary = byId(in: backgroundContext, id: message.id)
+            let message = byId(in: backgroundContext, id: message.id)
             do {
-                if let diary = diary {
-                    backgroundContext.delete(diary)
+                if let message = message {
+                    backgroundContext.delete(message)
                     try backgroundContext.save()
+                    print("삭제!!")
                 }
+                
           } catch {
               backgroundContext.rollback()
           }

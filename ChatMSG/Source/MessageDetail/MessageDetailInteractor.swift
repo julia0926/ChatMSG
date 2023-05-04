@@ -17,12 +17,12 @@ protocol MessageDetailBusinessLogic {
 }
 
 protocol MessageDetailDataStore {
-    var message: MessageInfo? { get set }
+    var message: MessageItem? { get set }
 }
 
 final class MessageDetailInteractor: MessageDetailBusinessLogic, MessageDetailDataStore {
     var presenter: MessageDetailPresentationLogic?
-    var message: MessageInfo?
+    var message: MessageItem?
     
     // MARK: - do Something
   

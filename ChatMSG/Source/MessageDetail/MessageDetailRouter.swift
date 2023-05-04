@@ -13,7 +13,6 @@
 import UIKit
 
 protocol MessageDetailRoutingLogic {
-  //func routeToSomewhere()
 }
 
 protocol MessageDetailDataPassing {
@@ -24,27 +23,4 @@ final class MessageDetailRouter: MessageDetailRoutingLogic, MessageDetailDataPas
     weak var viewController: MessageDetailViewController?
     var dataStore: MessageDetailDataStore?
   
-
-    // MARK: -  Routing
-    
-//    func routeToSomewhere() {
-//        let destinationVC = UIViewController()
-//        guard var destinationDS = destinationVC.router?.dataStore else { return }
-//        guard let dataStore = dataStore else { return }
-//        guard let viewController = viewController else { return }
-//        passDataToSomewhere(source: dataStore, destination: &destinationDS)
-//        navigateToSomewhere(source: viewController, destination: destinationVC)
-//    }
-
-  // MARK: - Navigation
-  
-//    func navigateToSomewhere(source: MessageDetailViewController, destination: SomewhereViewController) {
-//        source.show(destination, sender: nil)
-//    }
-  
-  // MARK: - Passing data
-  
-//    func passDataToSomewhere(source: MessageDetailDataStore, destination: inout SomewhereDataStore) {
-//        destination.name = source.name
-//    }
 }

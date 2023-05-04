@@ -192,8 +192,8 @@ final class ResultViewController: UIViewController, NewMessageDisplayLogic {
     }
     
     @objc private func tappedSaveAndMainButton() {
-        self.navigationController?.popToRootViewController(animated: true)
         self.interactor?.saveNewMessage()
+        self.router?.routeToMessageList()
     }
     
     

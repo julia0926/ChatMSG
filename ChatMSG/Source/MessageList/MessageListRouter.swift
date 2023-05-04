@@ -29,7 +29,6 @@ final class MessageListRouter: MessageListRoutingLogic, MessageListDataPassing {
   
 
     // MARK: -  Routing
-    
     func routeToMessageDetail(index: Int) {
         let detailVC = MessageDetailViewController()
         guard let dataStore = dataStore,
@@ -45,7 +44,6 @@ final class MessageListRouter: MessageListRoutingLogic, MessageListDataPassing {
         let newMessageVC = ReceiverViewController()
         guard let vc = listVC else { return }
         vc.navigationController?.pushViewController(newMessageVC, animated: true)
-
     }
     
 }

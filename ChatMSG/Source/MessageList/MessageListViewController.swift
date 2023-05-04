@@ -72,11 +72,11 @@ final class MessageListViewController: UIViewController, MessageListDisplayLogic
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUpLayout()
-        self.fetchMessageList()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         self.setUpNavigationBar()
+        self.fetchMessageList()
     }
     
     private func setUpNavigationBar() {
@@ -117,8 +117,9 @@ final class MessageListViewController: UIViewController, MessageListDisplayLogic
             self.messageListTableView.reloadData()
         }
     }
+    
     func displaySomething(viewModel: MessageList.Something.ViewModel) {
-        self.displayedMessageList.append(contentsOf: viewModel.displayedMessageList)
+        self.displayedMessageList = viewModel.displayedMessageList
     }
     
 }
@@ -139,6 +140,14 @@ extension MessageListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let router = router {
             router.routeToMessageDetail(index: indexPath.row)
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            interactor?.deleteMessage(indexPath.row)
+            self.displayedMessageList.remove(at: indexPath.row)
+            self.messageListTableView.reloadData()
         }
     }
 }
