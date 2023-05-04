@@ -13,8 +13,6 @@
 import UIKit
 
 protocol MessageListWorkerProtocol {
-//    func requestSometing()
-//    func translate()
 }
 
 final class MessageListWorker: MessageListWorkerProtocol {
