@@ -24,6 +24,14 @@ final class LineTextView: UIView {
         return view
     }()
     
+    private let descriptionLabel: UILabel = {
+        let view = UILabel()
+        view.textColor = .gray
+        view.font = .systemFont(ofSize: 13, weight: .medium)
+        view.numberOfLines = 0
+        return view
+    }()
+    
     private let textView: UITextView = {
         let view = UITextView()
         view.font = .systemFont(ofSize: 15, weight: .medium)
@@ -52,12 +60,13 @@ final class LineTextView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(title: String) {
+    func configure(title: String, description: String) {
         self.titleLabel.text = title
+        self.descriptionLabel.text = description
     }
     
     private func setUpLayout() {
-        [self.titleLabel, self.textView, self.textCountLabel].forEach {
+        [self.titleLabel, self.descriptionLabel, self.textView, self.textCountLabel].forEach {
             self.addSubview($0)
         }
         
@@ -65,8 +74,13 @@ final class LineTextView: UIView {
             make.top.leading.trailing.equalToSuperview()
         }
         
+        self.descriptionLabel.snp.makeConstraints { make in
+            make.top.equalTo(self.titleLabel.snp.bottom).offset(10)
+            make.leading.trailing.equalToSuperview()
+        }
+        
         self.textView.snp.makeConstraints { make in
-            make.top.equalTo(self.titleLabel.snp.bottom).offset(20)
+            make.top.equalTo(self.descriptionLabel.snp.bottom).offset(20)
             make.leading.trailing.equalToSuperview()
         }
         

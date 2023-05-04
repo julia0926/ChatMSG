@@ -44,7 +44,8 @@ final class SituationViewController: UIViewController {
     // MARK: -  UIComponent
     private let textView: LineTextView =  {
         let view = LineTextView()
-        view.configure(title: "메세지 속 상황을 자세히 알려주세요!")
+        view.configure(title: "메세지 속 상황을 알려주세요!",
+                       description: "최대한 자세히 작성할 수록 더욱 완성도 있는 \n메세지를 만들 수 있어요 💌 (글자수는 10자 이상)")
         return view
     }()
 
