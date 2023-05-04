@@ -32,6 +32,7 @@ final class ResultViewController: UIViewController, NewMessageDisplayLogic {
             self.copyButton.isHidden = componentIsHidden
             self.shareButton.isHidden = componentIsHidden
             self.retryButton.isHidden = componentIsHidden
+            self.saveAndMainButton.isHidden = componentIsHidden
         }
     }
     
@@ -120,7 +121,7 @@ final class ResultViewController: UIViewController, NewMessageDisplayLogic {
         let btn = UIButton()
         btn.setTitle("🔗 공유", for: .normal)
         btn.setTitleColor(.darkGray, for: .normal)
-        btn.titleLabel?.font = .systemFont(ofSize: 15, weight: .semibold)
+        btn.titleLabel?.font = .systemFont(ofSize: 13, weight: .semibold)
         btn.layer.cornerRadius = 20
         btn.layer.backgroundColor = UIColor.systemGray6.cgColor
         btn.clipsToBounds = true
@@ -130,7 +131,7 @@ final class ResultViewController: UIViewController, NewMessageDisplayLogic {
     private let retryButton: UIButton = {
         let btn = UIButton()
         btn.setTitle("♻️ 다시 만들기", for: .normal)
-        btn.titleLabel?.font = .systemFont(ofSize: 14, weight: .semibold)
+        btn.titleLabel?.font = .systemFont(ofSize: 13, weight: .semibold)
         btn.setTitleColor(.darkGray, for: .normal)
         btn.layer.cornerRadius = 20
         btn.layer.backgroundColor = UIColor.systemGray6.cgColor
@@ -138,7 +139,16 @@ final class ResultViewController: UIViewController, NewMessageDisplayLogic {
         return btn
     }()
     
-
+    private let saveAndMainButton: UIButton = {
+        let btn = UIButton()
+        btn.setTitle("저장하고 메인이동", for: .normal)
+        btn.titleLabel?.font = .systemFont(ofSize: 16, weight: .bold)
+        btn.setTitleColor(.white, for: .normal)
+        btn.layer.cornerRadius = 20
+        btn.layer.backgroundColor = UIColor.orange.cgColor
+        return btn
+    }()
+    
     // MARK: - View lifecycle
     
     override func viewDidLoad() {
@@ -154,6 +164,7 @@ final class ResultViewController: UIViewController, NewMessageDisplayLogic {
         self.copyButton.addTarget(self, action: #selector(tappedCopyButton), for: .touchUpInside)
         self.shareButton.addTarget(self, action: #selector(tappedShareButton), for: .touchUpInside)
         self.retryButton.addTarget(self, action: #selector(tappedRetryButton), for: .touchUpInside)
+        self.saveAndMainButton.addTarget(self, action: #selector(tappedSaveAndMainButton), for: .touchUpInside)
     }
     
     @objc private func tappedCopyButton() {
@@ -171,6 +182,11 @@ final class ResultViewController: UIViewController, NewMessageDisplayLogic {
     
     @objc private func tappedRetryButton() {
         self.requestMessage()
+    }
+    
+    @objc private func tappedSaveAndMainButton() {
+        self.navigationController?.popToRootViewController(animated: true)
+        // TODO: CoreData에 저장하기
     }
     
     // VIP Cycle Start
@@ -194,7 +210,6 @@ final class ResultViewController: UIViewController, NewMessageDisplayLogic {
         self.present(alert, animated: true, completion: nil)
     }
     
-    
 }
 
 extension ResultViewController {
@@ -203,7 +218,7 @@ extension ResultViewController {
             self.indicatorStackView.addArrangedSubview($0)
         }
         
-        [self.indicatorStackView, self.titleLabel, self.messageTextView, self.copyButton, self.shareButton, self.retryButton].forEach {
+        [self.indicatorStackView, self.titleLabel, self.messageTextView, self.copyButton, self.shareButton, self.retryButton, self.saveAndMainButton].forEach {
             self.view.addSubview($0)
         }
         
@@ -213,7 +228,7 @@ extension ResultViewController {
         }
         
         self.titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).inset(50)
+            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(20)
             make.leading.trailing.equalToSuperview().inset(30)
         }
 
@@ -221,7 +236,7 @@ extension ResultViewController {
         self.messageTextView.snp.makeConstraints { make in
             make.top.equalTo(self.titleLabel.snp.bottom).offset(30)
             make.leading.trailing.equalToSuperview().inset(30)
-            make.height.equalTo(400)
+            make.height.equalTo(370)
         }
         
         self.copyButton.snp.makeConstraints { make in
@@ -232,15 +247,22 @@ extension ResultViewController {
         
         self.shareButton.snp.makeConstraints { make in
             make.top.equalTo(self.messageTextView.snp.bottom).offset(30)
-            make.leading.equalToSuperview().inset(60)
-            make.width.equalTo(100)
-            make.height.equalTo(40)
+            make.centerX.equalToSuperview().offset(-80)
+            make.width.equalTo(90)
+            make.height.equalTo(35)
         }
         
         self.retryButton.snp.makeConstraints { make in
             make.top.equalTo(self.messageTextView.snp.bottom).offset(30)
-            make.trailing.equalToSuperview().inset(60)
+            make.centerX.equalToSuperview().offset(80)
             make.width.equalTo(120)
+            make.height.equalTo(35)
+        }
+        
+        self.saveAndMainButton.snp.makeConstraints { make in
+            make.top.equalTo(self.shareButton.snp.bottom).offset(20)
+            make.centerX.equalToSuperview()
+            make.width.equalTo(160)
             make.height.equalTo(40)
         }
     }
