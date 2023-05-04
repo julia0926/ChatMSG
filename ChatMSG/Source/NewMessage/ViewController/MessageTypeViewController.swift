@@ -16,8 +16,12 @@ final class MessageTypeViewController: UIViewController {
     var interactor: NewMessageBusinessLogic?
     var router: (NewMessageRoutingLogic & NewMessageDataPassing)?
     
-    private var messageType: String?
-    private var writingStyle: String?
+    private var messageType: String? {
+        didSet { self.observerNextButton() }
+    }
+    private var writingStyle: String? {
+        didSet { self.observerNextButton() }
+    }
 
     // MARK: - Object lifecycle
     
@@ -65,11 +69,11 @@ final class MessageTypeViewController: UIViewController {
         btn.layer.borderColor = UIColor.orange.cgColor
         btn.layer.borderWidth = 2
         btn.layer.cornerRadius = 10
+        btn.isEnabled = false
         return btn
     }()
     
     // MARK: - View lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureUI()
@@ -85,6 +89,21 @@ final class MessageTypeViewController: UIViewController {
     
     private func settingNextButton() {
         self.nextButton.addTarget(self, action: #selector(didTapNextButton(_:)), for: .touchUpInside)
+    }
+    
+    private func observerNextButton() {
+        guard let type = self.messageType, let style = self.writingStyle else { return }
+        if !type.isEmpty && !style.isEmpty {
+            self.updateButtonState(true)
+        }
+    }
+    
+    private func updateButtonState(_ flag: Bool) {
+        let buttonTitleColor: UIColor = flag ? .white : .black
+        let buttonBackgroundColor: UIColor = flag ? .orange : .clear
+        self.nextButton.setTitleColor(buttonTitleColor, for: .normal)
+        self.nextButton.backgroundColor = buttonBackgroundColor
+        self.nextButton.isEnabled = flag
     }
     
     @objc private func didTapNextButton(_ sender: UIButton) {
