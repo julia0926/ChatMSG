@@ -72,38 +72,12 @@ final class MessageTypeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .systemBackground
+        self.configureUI()
         self.setUpLayout()
         self.settingKeywordView()
         self.settingNextButton()
     }
     
-    private func setUpLayout() {
-        [self.typeKeywordView, self.writingStyleKeywordView,  self.nextButton].forEach {
-            self.view.addSubview($0)
-        }
-        
-        self.typeKeywordView.snp.makeConstraints { make in
-            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).inset(50)
-            make.leading.trailing.equalToSuperview().inset(30)
-            make.height.equalTo(140)
-        }
-        
-        self.writingStyleKeywordView.snp.makeConstraints { make in
-            make.top.equalTo(self.typeKeywordView.snp.bottom).offset(10)
-            make.leading.trailing.equalToSuperview().inset(30)
-            make.height.equalTo(70)
-        }
-        
-        self.nextButton.snp.makeConstraints { make in
-            make.top.equalTo(self.writingStyleKeywordView.snp.bottom).offset(30)
-            make.trailing.equalTo(self.writingStyleKeywordView.snp.trailing)
-            make.width.equalTo(70)
-            make.height.equalTo(35)
-        }
-        
-    }
-
     private func settingKeywordView() {
         self.typeKeywordView.delegate = self
         self.writingStyleKeywordView.delegate = self
@@ -131,4 +105,39 @@ extension MessageTypeViewController: KeywordViewDelegate {
     func getWritingStyle(_ style: String) {
         self.writingStyle = style
     }
+}
+
+extension MessageTypeViewController {
+    
+    private func setUpLayout() {
+        [self.typeKeywordView, self.writingStyleKeywordView,  self.nextButton].forEach {
+            self.view.addSubview($0)
+        }
+        
+        self.typeKeywordView.snp.makeConstraints { make in
+            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).inset(50)
+            make.leading.trailing.equalToSuperview().inset(30)
+            make.height.equalTo(140)
+        }
+        
+        self.writingStyleKeywordView.snp.makeConstraints { make in
+            make.top.equalTo(self.typeKeywordView.snp.bottom).offset(10)
+            make.leading.trailing.equalToSuperview().inset(30)
+            make.height.equalTo(70)
+        }
+        
+        self.nextButton.snp.makeConstraints { make in
+            make.top.equalTo(self.writingStyleKeywordView.snp.bottom).offset(30)
+            make.trailing.equalTo(self.writingStyleKeywordView.snp.trailing)
+            make.width.equalTo(70)
+            make.height.equalTo(35)
+        }
+    }
+    
+    private func configureUI() {
+        self.view.backgroundColor = .systemBackground
+        self.navigationController?.navigationBar.topItem?.title = ""
+        self.navigationController?.navigationBar.tintColor = .orange
+    }
+
 }

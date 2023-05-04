@@ -62,34 +62,10 @@ final class ReceiverViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.configureUI()
         self.setUpLayout()
         self.settingNextButton()
         self.receiverTextField.delegate = self
-        self.view.backgroundColor = .systemBackground
-    }
-    
-    private func setUpLayout() {
-        [self.receiverTextField, self.nextButton].forEach {
-            self.view.addSubview($0)
-        }
-    
-        self.receiverTextField.snp.makeConstraints { make in
-            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).inset(50)
-            make.leading.trailing.equalToSuperview().inset(30)
-            make.height.equalTo(140)
-        }
-        
-        self.nextButton.snp.makeConstraints { make in
-            make.top.equalTo(self.receiverTextField.snp.bottom).offset(30)
-            make.trailing.equalTo(self.receiverTextField.snp.trailing)
-            make.width.equalTo(70)
-            make.height.equalTo(35)
-        }
-        
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.view.endEditing(true)
     }
     
     private func settingNextButton() {
@@ -117,4 +93,37 @@ extension ReceiverViewController: UnderLineViewDelegate {
         self.nextButton.isEnabled = flag
     }
     
+}
+
+extension ReceiverViewController {
+
+    private func setUpLayout() {
+        [self.receiverTextField, self.nextButton].forEach {
+            self.view.addSubview($0)
+        }
+    
+        self.receiverTextField.snp.makeConstraints { make in
+            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).inset(50)
+            make.leading.trailing.equalToSuperview().inset(30)
+            make.height.equalTo(140)
+        }
+        
+        self.nextButton.snp.makeConstraints { make in
+            make.top.equalTo(self.receiverTextField.snp.bottom).offset(30)
+            make.trailing.equalTo(self.receiverTextField.snp.trailing)
+            make.width.equalTo(70)
+            make.height.equalTo(35)
+        }
+        
+    }
+    
+    private func configureUI() {
+        self.view.backgroundColor = .systemBackground
+        self.navigationController?.navigationBar.topItem?.title = ""
+        self.navigationController?.navigationBar.tintColor = .orange
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
 }

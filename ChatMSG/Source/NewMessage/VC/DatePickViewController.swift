@@ -72,11 +72,36 @@ final class DatePickViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .systemBackground
         self.setUpLayout()
+        self.configureUI()
         self.settingDatePicker()
         self.settingNextButton()
     }
+
+    func settingDatePicker() {
+        self.datePickerView.addTarget(self, action: #selector(changedDatePicker), for: .valueChanged)
+    }
+    
+    @objc private func changedDatePicker(_ sender: UIDatePicker) {
+        self.pickerDate = sender.date
+        self.nextButton.isEnabled = true
+        self.nextButton.setTitleColor(.white, for: .normal)
+        self.nextButton.backgroundColor = .orange
+    }
+    
+    private func settingNextButton() {
+        self.nextButton.addTarget(self, action: #selector(didTapNextButton(_:)), for: .touchUpInside)
+    }
+    
+    @objc private func didTapNextButton(_ sender: UIButton) {
+        if let router = router, let date = self.pickerDate {
+            router.datePickRouteToMessageType(date)
+        }
+    }
+    
+}
+
+extension DatePickViewController {
     
     private func setUpLayout() {
         [self.titleLabel, self.datePickerView, self.nextButton].forEach {
@@ -100,28 +125,12 @@ final class DatePickViewController: UIViewController {
             make.width.equalTo(70)
             make.height.equalTo(35)
         }
-        
     }
     
-    func settingDatePicker() {
-        self.datePickerView.addTarget(self, action: #selector(changedDatePicker), for: .valueChanged)
-    }
-    
-    @objc private func changedDatePicker(_ sender: UIDatePicker) {
-        self.pickerDate = sender.date
-        self.nextButton.isEnabled = true
-        self.nextButton.setTitleColor(.white, for: .normal)
-        self.nextButton.backgroundColor = .orange
-    }
-    
-    private func settingNextButton() {
-        self.nextButton.addTarget(self, action: #selector(didTapNextButton(_:)), for: .touchUpInside)
-    }
-    
-    @objc private func didTapNextButton(_ sender: UIButton) {
-        if let router = router, let date = self.pickerDate {
-            router.datePickRouteToMessageType(date)
-        }
+    private func configureUI() {
+        self.view.backgroundColor = .systemBackground
+        self.navigationController?.navigationBar.topItem?.title = ""
+        self.navigationController?.navigationBar.tintColor = .orange
     }
     
 }

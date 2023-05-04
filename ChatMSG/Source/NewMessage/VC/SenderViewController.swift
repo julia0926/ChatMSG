@@ -64,34 +64,11 @@ final class SenderViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUpLayout()
+        self.configureUI()
         self.settingNextButton()
         self.senderTextField.delegate = self
-        self.view.backgroundColor = .systemBackground
     }
-    
-    private func setUpLayout() {
-        [self.senderTextField, self.nextButton].forEach {
-            self.view.addSubview($0)
-        }
-        
-        self.senderTextField.snp.makeConstraints { make in
-            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).inset(50)
-            make.leading.trailing.equalToSuperview().inset(30)
-            make.height.equalTo(140)
-        }
-        
-        self.nextButton.snp.makeConstraints { make in
-            make.top.equalTo(self.senderTextField.snp.bottom).offset(30)
-            make.trailing.equalTo(self.senderTextField.snp.trailing)
-            make.width.equalTo(70)
-            make.height.equalTo(35)
-        }
-        
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.view.endEditing(true)
-    }
+
     
     private func settingNextButton() {
         self.nextButton.addTarget(self, action: #selector(didTapNextButton(_:)), for: .touchUpInside)
@@ -117,6 +94,40 @@ extension SenderViewController: UnderLineViewDelegate {
         self.nextButton.setTitleColor(buttonTitleColor, for: .normal)
         self.nextButton.backgroundColor = buttonBackgroundColor
         self.nextButton.isEnabled = flag
+    }
+    
+}
+
+extension SenderViewController {
+    
+    private func setUpLayout() {
+        [self.senderTextField, self.nextButton].forEach {
+            self.view.addSubview($0)
+        }
+        
+        self.senderTextField.snp.makeConstraints { make in
+            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).inset(50)
+            make.leading.trailing.equalToSuperview().inset(30)
+            make.height.equalTo(140)
+        }
+        
+        self.nextButton.snp.makeConstraints { make in
+            make.top.equalTo(self.senderTextField.snp.bottom).offset(30)
+            make.trailing.equalTo(self.senderTextField.snp.trailing)
+            make.width.equalTo(70)
+            make.height.equalTo(35)
+        }
+        
+    }
+    
+    private func configureUI() {
+        self.view.backgroundColor = .systemBackground
+        self.navigationController?.navigationBar.topItem?.title = ""
+        self.navigationController?.navigationBar.tintColor = .orange
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
     }
     
 }
