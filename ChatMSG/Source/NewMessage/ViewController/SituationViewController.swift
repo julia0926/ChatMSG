@@ -77,7 +77,7 @@ final class SituationViewController: UIViewController {
     
     @objc private func didTapNextButton(_ sender: UIButton) {
         if let router = router, let text = self.textViewText {
-            router.situationRouteToResult(situation: text)
+            router.situationRouteToResult(text)
         }
     }
 }

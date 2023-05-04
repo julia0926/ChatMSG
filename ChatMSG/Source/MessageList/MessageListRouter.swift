@@ -13,7 +13,7 @@
 import UIKit
 
 protocol MessageListRoutingLogic {
-  //func routeToSomewhere()
+    func routeToMessageDetail(index: Int)
 }
 
 protocol MessageListDataPassing {
@@ -27,24 +27,16 @@ final class MessageListRouter: MessageListRoutingLogic, MessageListDataPassing {
 
     // MARK: -  Routing
     
-//    func routeToSomewhere() {
-//        let destinationVC = UIViewController()
-//        guard var destinationDS = destinationVC.router?.dataStore else { return }
-//        guard let dataStore = dataStore else { return }
-//        guard let viewController = viewController else { return }
-//        passDataToSomewhere(source: dataStore, destination: &destinationDS)
-//        navigateToSomewhere(source: viewController, destination: destinationVC)
-//    }
+    func routeToMessageDetail(index: Int) {
+        let destinationVC = MessageDetailViewController()
+        guard let dataStore = dataStore,
+              var detailDataStore = destinationVC.router?.dataStore,
+              let vc = viewController else {
+            return
+        }
+        vc.navigationController?.pushViewController(destinationVC, animated: true)
+        detailDataStore.message = dataStore.messageList[index]
+    }
 
-  // MARK: - Navigation
   
-//    func navigateToSomewhere(source: MessageListViewController, destination: SomewhereViewController) {
-//        source.show(destination, sender: nil)
-//    }
-  
-  // MARK: - Passing data
-  
-//    func passDataToSomewhere(source: MessageListDataStore, destination: inout SomewhereDataStore) {
-//        destination.name = source.name
-//    }
 }

@@ -136,5 +136,9 @@ extension MessageListViewController: UITableViewDataSource {
 }
 
 extension MessageListViewController: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let router = router {
+            router.routeToMessageDetail(index: indexPath.row)
+        }
+    }
 }

@@ -17,7 +17,7 @@ protocol NewMessageRoutingLogic {
     func senderRouteToDatePick(_ sender: String)
     func datePickRouteToMessageType(_ date: Date)
     func messageTypeRouteToSituation(type: String, writingStyle: String)
-    func situationRouteToResult(situation: String)
+    func situationRouteToResult(_ situation: String)
 }
 
 protocol NewMessageDataPassing {
@@ -62,16 +62,10 @@ final class NewMessageRouter: NewMessageRoutingLogic, NewMessageDataPassing {
         dataStore?.writingStyle = writingStyle
     }
     
-    func situationRouteToResult(situation: String) {
+    func situationRouteToResult(_ situation: String) {
         let resultVC = ResultViewController()
         situationVC?.navigationController?.pushViewController(resultVC, animated: true)
         dataStore?.situation = situation
     }
     
-  // MARK: - Navigation
-  
-
-  
-  // MARK: - Passing data
-  
 }
