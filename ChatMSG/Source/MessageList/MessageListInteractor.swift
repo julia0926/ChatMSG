@@ -17,11 +17,11 @@ protocol MessageListBusinessLogic {
 }
 
 protocol MessageListDataStore {
-    var messageList: [MessageInfoModel] { get set }
+    var messageList: [MessageInfo] { get set }
 }
 
 final class MessageListInteractor: MessageListBusinessLogic, MessageListDataStore {
-    var messageList: [MessageInfoModel] = []
+    var messageList: [MessageInfo] = []
     var presenter: MessageListPresentationLogic?
     private var worker: MessageListWorkerProtocol?
   
@@ -36,7 +36,7 @@ final class MessageListInteractor: MessageListBusinessLogic, MessageListDataStor
     func fetchMessageList() {
         guard let worker = worker else { return }
         Task {
-            let messages: [MessageInfoModel] = await worker.fetchMessage()
+            let messages: [MessageInfo] = await worker.fetchMessage()
             self.messageList = messages
             let response = MessageList.Something.Response(messageList: self.messageList)
             presenter?.presentMessageList(response: response)

@@ -21,7 +21,7 @@ enum MessageList {
         }
 
         struct Response {
-            var messageList: [MessageInfoModel]
+            var messageList: [MessageInfo]
         }
           
         struct ViewModel {

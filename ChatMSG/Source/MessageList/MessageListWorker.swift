@@ -13,20 +13,20 @@
 import UIKit
 
 protocol MessageListWorkerProtocol {
-    func fetchMessage() async -> [MessageInfoModel]
+    func fetchMessage() async -> [MessageInfo]
 }
 
 final class MessageListWorker: MessageListWorkerProtocol {
     
-    func fetchMessage() async -> [MessageInfoModel] {
-        let messages: [MessageInfoModel] = await Message.fetchAllMessage().map {
+    func fetchMessage() async -> [MessageInfo] {
+        let messages: [MessageInfo] = await Message.fetchAllMessage().map {
             self.translate($0)
         }
         return messages
     }
     
     /// 서버 모델 데이터를 내부 모델로 변경합니다.
-    func translate(_ data: MessageItem) -> MessageInfoModel {
+    func translate(_ data: MessageItem) -> MessageInfo {
         return .init(receiver: data.receiver,
                      sender: data.sender,
                      type: data.type,

@@ -187,7 +187,6 @@ final class ResultViewController: UIViewController, NewMessageDisplayLogic {
     
     @objc private func tappedSaveAndMainButton() {
         self.navigationController?.popToRootViewController(animated: true)
-        // TODO: CoreData에 저장하기
         self.interactor?.saveNewMessage()
     }
     

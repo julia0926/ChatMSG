@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct MessageInfoModel {
+struct MessageInfo {
     var receiver: String
     var sender: String
     var type: String

@@ -29,10 +29,6 @@ final class MessageListViewController: UIViewController, MessageListDisplayLogic
     var interactor: MessageListBusinessLogic?
     var router: (MessageListRoutingLogic & MessageListDataPassing)?
     
-    private let dummyList: [Dummy] = [
-        Dummy(type: "감사", date: "23/05/01", receiver: "직장상사"),
-        Dummy(type: "감사222", date: "23/05/01", receiver: "친구")]
-    
     // MARK: - Object lifecycle
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -64,10 +60,10 @@ final class MessageListViewController: UIViewController, MessageListDisplayLogic
     private lazy var messageListTableView: UITableView = {
         let view = UITableView()
         view.backgroundColor = .systemBackground
-        view.register(MessageListCell.self)
         view.rowHeight = 100
         view.dataSource = self
         view.delegate = self
+        view.register(MessageListCell.self)
         return view
     }()
     
