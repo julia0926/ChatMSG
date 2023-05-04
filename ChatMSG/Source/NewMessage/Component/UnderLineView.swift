@@ -90,7 +90,7 @@ extension UnderLineView: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if let text = textField.text {
             let newLength = text.count + string.count - range.length
-            delegate?.updateButtonState(newLength >= 3)
+            delegate?.updateButtonState(newLength >= 2)
             delegate?.getTextFieldText(text)
         }
         return true
