@@ -145,9 +145,8 @@
 		6C56AC2229F916DF00D6BDD5 /* NewMessage */ = {
 			isa = PBXGroup;
 			children = (
-				6CA9043A29FF768B00E0A6D8 /* VC */,
 				6C005DF929FA81350073712D /* Component */,
-				6C56AC2729F9170C00D6BDD5 /* ResultViewController.swift */,
+				6CA9043A29FF768B00E0A6D8 /* ViewController */,
 				6C56AC2829F9170C00D6BDD5 /* NewMessageInteractor.swift */,
 				6C56AC2329F9170C00D6BDD5 /* NewMessagePresenter.swift */,
 				6C56AC2429F9170C00D6BDD5 /* NewMessageWorker.swift */,
@@ -166,7 +165,7 @@
 			path = Network;
 			sourceTree = "<group>";
 		};
-		6CA9043A29FF768B00E0A6D8 /* VC */ = {
+		6CA9043A29FF768B00E0A6D8 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
 				6C674FFD2A00AC610050680E /* ReceiverViewController.swift */,
@@ -174,8 +173,9 @@
 				6C6750042A00D64D0050680E /* DatePickViewController.swift */,
 				6CA9043829FF768600E0A6D8 /* MessageTypeViewController.swift */,
 				6C6750062A00E3180050680E /* SituationViewController.swift */,
+				6C56AC2729F9170C00D6BDD5 /* ResultViewController.swift */,
 			);
-			path = VC;
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 		6CEF4A2C29F8EAD900D1089D = {
