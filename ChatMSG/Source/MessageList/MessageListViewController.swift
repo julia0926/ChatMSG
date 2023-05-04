@@ -72,8 +72,11 @@ final class MessageListViewController: UIViewController, MessageListDisplayLogic
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUpLayout()
-        self.setUpNavigationBar()
         self.fetchMessageList()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.setUpNavigationBar()
     }
     
     private func setUpNavigationBar() {

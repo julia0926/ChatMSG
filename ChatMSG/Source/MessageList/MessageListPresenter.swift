@@ -23,17 +23,12 @@ final class MessageListPresenter: MessageListPresentationLogic {
         let displayedMessageList: [MessageList.Something.ViewModel.DisplayedMessage] = response.messageList.map {
             return MessageList.Something.ViewModel.DisplayedMessage(type: $0.type,
                                                                     receiver: "To: \($0.receiver)",
-                                                                    createdDate: dateToString($0.createdDate))
+                                                                    createdDate: $0.createdDate.slashFormat())
         }
         let viewModel = MessageList.Something.ViewModel(displayedMessageList: displayedMessageList)
         Task { @MainActor in
             viewController?.displaySomething(viewModel: viewModel)
         }
     }
-    
-    private func dateToString(_ data: Date) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yy/MM/dd"
-        return dateFormatter.string(from: data)
-    }
+
 }

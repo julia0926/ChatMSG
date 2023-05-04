@@ -13,7 +13,7 @@
 import UIKit
 
 protocol MessageDetailBusinessLogic {
-    func doSomething(request: MessageDetail.Something.Request)
+    func fetchMessage(request: MessageDetail.Something.Request)
 }
 
 protocol MessageDetailDataStore {
@@ -22,16 +22,17 @@ protocol MessageDetailDataStore {
 
 final class MessageDetailInteractor: MessageDetailBusinessLogic, MessageDetailDataStore {
     var presenter: MessageDetailPresentationLogic?
-    private var worker: MessageDetailWorker?
     var message: MessageInfo?
     
     // MARK: - do Something
   
-    func doSomething(request: MessageDetail.Something.Request) {
-        worker = MessageDetailWorker()
-        worker?.doSomeWork()
-    
-        let response = MessageDetail.Something.Response()
-        presenter?.presentSomething(response: response)
+    func fetchMessage(request: MessageDetail.Something.Request) {
+        if let message = message {
+            let response = MessageDetail.Something.Response(message: message)
+            presenter?.presentSomething(response: response)
+        } else {
+            
+        }
+
     }
 }

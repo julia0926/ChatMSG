@@ -21,11 +21,24 @@ enum MessageDetail {
         }
 
         struct Response {
+            var message: MessageInfo
             
+            struct Error {
+                var message: String
+            }
         }
           
         struct ViewModel {
+            struct displayedMessage {
+                var title: String
+                var description: String
+                var situation: String
+            }
             
+            struct Error {
+                var message: String
+            }
+            var displayedMessage: displayedMessage
         }
     }
 }

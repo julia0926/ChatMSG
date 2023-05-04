@@ -18,12 +18,15 @@ protocol MessageDetailPresentationLogic {
 
 final class MessageDetailPresenter: MessageDetailPresentationLogic {
     weak var viewController: MessageDetailDisplayLogic?
-  
-    // MARK: -  Do something
-    
+      
     func presentSomething(response: MessageDetail.Something.Response) {
-        
-        let viewModel = MessageDetail.Something.ViewModel()
+        let message = response.message
+        let title: String = "\(message.receiver)에게 📮"
+        let description: String = "\(message.sender)로서 보낸 \(message.type) 메세지 \n\(message.createdDate.hangleFormat())에 보냈어요!"
+        let displayedMessage = MessageDetail.Something.ViewModel.displayedMessage(title: title,
+                                                                                  description: description,
+                                                                                  situation: message.situation)
+        let viewModel = MessageDetail.Something.ViewModel(displayedMessage: displayedMessage)
         Task { @MainActor in
             viewController?.displaySomething(viewModel: viewModel)
         }

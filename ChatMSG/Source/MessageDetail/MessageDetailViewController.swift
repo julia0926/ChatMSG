@@ -51,8 +51,16 @@ final class MessageDetailViewController: UIViewController, MessageDetailDisplayL
     // MARK: -  UIComponent
     private let titleLabel: UILabel = {
         let view = UILabel()
-        view.textColor = .darkGray
-        view.font = .systemFont(ofSize: 22, weight: .bold)
+        view.textColor = .black
+        view.font = .systemFont(ofSize: 20, weight: .bold)
+        return view
+    }()
+    
+    private let descriptionLabel: UILabel = {
+        let view = UILabel()
+        view.textColor = .gray
+        view.font = .systemFont(ofSize: 15, weight: .medium)
+        view.numberOfLines = 0
         return view
     }()
 
@@ -90,7 +98,7 @@ final class MessageDetailViewController: UIViewController, MessageDetailDisplayL
         super.viewDidLoad()
         self.configureUI()
         self.setUpLayout()
-        doSomething()
+        fetchMessage()
         self.configureButton()
     }
     
@@ -113,22 +121,24 @@ final class MessageDetailViewController: UIViewController, MessageDetailDisplayL
     }
     
     // VIP Cycle Start
-    func doSomething() {
-        let request = MessageDetail.Something.Request()
-        interactor?.doSomething(request: request)
+    func fetchMessage() {
+        let request =  MessageDetail.Something.Request()
+        interactor?.fetchMessage(request: request)
     }
     
     // MARK: - Display Logic
   
     func displaySomething(viewModel: MessageDetail.Something.ViewModel) {
-        //nameTextField.text = viewModel.name
+        self.titleLabel.text = viewModel.displayedMessage.title
+        self.descriptionLabel.text = viewModel.displayedMessage.description
+        self.messageTextView.text = viewModel.displayedMessage.situation
     }
     
 }
 
 extension MessageDetailViewController {
     private func setUpLayout() {
-        [self.titleLabel, self.messageTextView, self.copyButton, self.shareButton].forEach {
+        [self.titleLabel, self.descriptionLabel, self.messageTextView, self.copyButton, self.shareButton].forEach {
             self.view.addSubview($0)
         }
         
@@ -137,10 +147,15 @@ extension MessageDetailViewController {
             make.leading.trailing.equalToSuperview().inset(30)
         }
         
-        self.messageTextView.snp.makeConstraints { make in
-            make.top.equalTo(self.titleLabel.snp.bottom).offset(30)
+        self.descriptionLabel.snp.makeConstraints { make in
+            make.top.equalTo(self.titleLabel.snp.bottom).offset(10)
             make.leading.trailing.equalToSuperview().inset(30)
-            make.height.equalTo(370)
+        }
+        
+        self.messageTextView.snp.makeConstraints { make in
+            make.top.equalTo(self.descriptionLabel.snp.bottom).offset(20)
+            make.leading.trailing.equalToSuperview().inset(30)
+            make.height.equalTo(300)
         }
         
         self.copyButton.snp.makeConstraints { make in

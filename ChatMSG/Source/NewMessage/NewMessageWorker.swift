@@ -35,15 +35,9 @@ final class NewMessageWorker: NewMessageWorkerProtocol {
         return OpenAIRequest(type: model.type,
                              receiver: model.receiver,
                              sender: model.sender,
-                             date: dateToString(model.date),
+                             date: model.date.hangleFormat(),
                              writingStyle: model.writingStyle,
                              situation: model.situation)
-    }
-    
-    private func dateToString(_ data: Date) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy년 MM월 dd일"
-        return dateFormatter.string(from: data)
     }
     
     // MARK: - Save
