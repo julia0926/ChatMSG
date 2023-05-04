@@ -13,25 +13,33 @@
 import UIKit
 
 protocol MessageListBusinessLogic {
-    func doSomething(request: MessageList.Something.Request)
+    func fetchMessageList()
 }
 
 protocol MessageListDataStore {
-    //var name: String { get set }
+    var messageList: [MessageInfoModel] { get set }
 }
 
 final class MessageListInteractor: MessageListBusinessLogic, MessageListDataStore {
+    var messageList: [MessageInfoModel] = []
     var presenter: MessageListPresentationLogic?
-    private var worker: MessageListWorker?
-    //var name: String = ""
+    private var worker: MessageListWorkerProtocol?
   
     // MARK: - do Something
+    init(presenter: MessageListPresentationLogic = MessageListPresenter(),
+         worker: MessageListWorkerProtocol = MessageListWorker()) {
+        self.presenter = presenter
+        self.worker = worker
+    }
   
-    func doSomething(request: MessageList.Something.Request) {
-        worker = MessageListWorker()
-//        worker?.doSomeWork()
-    
-        let response = MessageList.Something.Response()
-        presenter?.presentSomething(response: response)
+
+    func fetchMessageList() {
+        guard let worker = worker else { return }
+        Task {
+            let messages: [MessageInfoModel] = await worker.fetchMessage()
+            self.messageList = messages
+            let response = MessageList.Something.Response(messageList: self.messageList)
+            presenter?.presentMessageList(response: response)
+        }
     }
 }

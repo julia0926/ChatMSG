@@ -14,6 +14,7 @@ import UIKit
 
 protocol NewMessageBusinessLogic {
     func requestNewMessage()
+    func saveNewMessage()
 }
 
 protocol NewMessageDataStore {
@@ -45,19 +46,12 @@ final class NewMessageInteractor: NewMessageBusinessLogic, NewMessageDataStore {
         self.worker = worker
     }
   
-    // MARK: - fetchNewMessage
     func requestNewMessage() {
         guard let worker = worker else { return }
         Task { [weak self] in
             guard let self = self else { return }
             do {
-                let request = MakeMessage.makeNewMessage.Request(receiver: self.receiver ?? "",
-                                                                 sender: self.sender ?? "",
-                                                                 date: self.date ?? .now,
-                                                                 type: removeImoji(self.type),
-                                                                 writingStyle: self.writingStyle ?? "",
-                                                                 situation: self.situation ?? "")
-                let message = try await worker.requestNewMessage(request)
+                let message = try await worker.requestNewMessage(self.makeRequest())
                 let response = MakeMessage.makeNewMessage.Response(newMessage: message)
                 presenter?.presentRequestedMessage(response: response)
             } catch {
@@ -66,12 +60,30 @@ final class NewMessageInteractor: NewMessageBusinessLogic, NewMessageDataStore {
         }
     }
     
+    func saveNewMessage() {
+        guard let worker = worker else { return }
+        Task {
+            await worker.saveNewMessage(makeRequest())
+        }
+    }
+    
+    private func makeRequest() -> MakeMessage.makeNewMessage.Request {
+        return MakeMessage.makeNewMessage.Request(receiver: self.receiver ?? "",
+                                                         sender: self.sender ?? "",
+                                                         date: self.date ?? .now,
+                                                         type: removeImoji(self.type),
+                                                         writingStyle: self.writingStyle ?? "",
+                                                         situation: self.situation ?? "")
+    }
+    
     private func removeImoji(_ origin: String?) -> String {
         if let splitStr: String.SubSequence = self.type?.split(separator: " ").last {
             return String(splitStr)
         }
         return ""
     }
+    
+
     
 
 }

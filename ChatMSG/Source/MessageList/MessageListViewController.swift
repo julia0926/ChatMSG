@@ -77,7 +77,7 @@ final class MessageListViewController: UIViewController, MessageListDisplayLogic
         super.viewDidLoad()
         self.setUpLayout()
         self.setUpNavigationBar()
-        doSomething()
+        self.fetchMessageList()
     }
     
     private func setUpNavigationBar() {
@@ -106,31 +106,33 @@ final class MessageListViewController: UIViewController, MessageListDisplayLogic
     }
     
     // VIP Cycle Start
-    func doSomething() {
-        let request = MessageList.Something.Request()
-        interactor?.doSomething(request: request)
+    func fetchMessageList() {
+        self.messageListTableView.reloadData()
+        self.interactor?.fetchMessageList()
     }
     
     // MARK: - Display Logic
-  
+    var displayedMessageList: [MessageList.Something.ViewModel.DisplayedMessage] = [] {
+        didSet {
+            self.messageListTableView.reloadData()
+        }
+    }
     func displaySomething(viewModel: MessageList.Something.ViewModel) {
-        //nameTextField.text = viewModel.name
+        self.displayedMessageList.append(contentsOf: viewModel.displayedMessageList)
     }
     
 }
 
 extension MessageListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dummyList.count
+        return self.displayedMessageList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(type: MessageListCell.self, for: indexPath)
-        cell.configure(data: self.dummyList[indexPath.row])
+        cell.configure(data: self.displayedMessageList[indexPath.row])
         return cell
     }
-    
-    
 }
 
 extension MessageListViewController: UITableViewDelegate {

@@ -13,19 +13,27 @@
 import UIKit
 
 protocol MessageListPresentationLogic {
-    func presentSomething(response: MessageList.Something.Response)
+    func presentMessageList(response: MessageList.Something.Response)
 }
 
 final class MessageListPresenter: MessageListPresentationLogic {
     weak var viewController: MessageListDisplayLogic?
   
-    // MARK: -  Do something
-    
-    func presentSomething(response: MessageList.Something.Response) {
-        
-        let viewModel = MessageList.Something.ViewModel()
+    func presentMessageList(response: MessageList.Something.Response) {
+        let displayedMessageList: [MessageList.Something.ViewModel.DisplayedMessage] = response.messageList.map {
+            return MessageList.Something.ViewModel.DisplayedMessage(type: $0.type,
+                                                                    receiver: "To: \($0.receiver)",
+                                                                    createdDate: dateToString($0.createdDate))
+        }
+        let viewModel = MessageList.Something.ViewModel(displayedMessageList: displayedMessageList)
         Task { @MainActor in
             viewController?.displaySomething(viewModel: viewModel)
         }
+    }
+    
+    private func dateToString(_ data: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yy/MM/dd"
+        return dateFormatter.string(from: data)
     }
 }

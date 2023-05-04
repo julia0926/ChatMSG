@@ -42,10 +42,10 @@ final class MessageListCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(data: Dummy) {
+    func configure(data: MessageList.Something.ViewModel.DisplayedMessage) {
         self.messageTypeLabel.text = data.type
-        self.writedDateLabel.text = data.date
-        self.receiverLabel.text = "To: \(data.receiver)"
+        self.writedDateLabel.text = data.createdDate
+        self.receiverLabel.text = data.receiver
     }
     
     private func setUpLayout() {

@@ -14,6 +14,7 @@ import UIKit
 
 protocol NewMessageWorkerProtocol {
     func requestNewMessage(_ message: MakeMessage.makeNewMessage.Request) async throws -> String
+    func saveNewMessage(_ request: MakeMessage.makeNewMessage.Request) async
 }
 
 final class NewMessageWorker: NewMessageWorkerProtocol {
@@ -23,6 +24,7 @@ final class NewMessageWorker: NewMessageWorkerProtocol {
         self.datasource = datasource
     }
     
+    // MARK: - Request
     func requestNewMessage(_ request: MakeMessage.makeNewMessage.Request) async throws -> String {
         let output = translate(request)
         let result = try await datasource.getMessage(request: output)
@@ -42,5 +44,14 @@ final class NewMessageWorker: NewMessageWorkerProtocol {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy년 MM월 dd일"
         return dateFormatter.string(from: data)
+    }
+    
+    // MARK: - Save
+    func saveNewMessage(_ request: MakeMessage.makeNewMessage.Request) async {
+        await Message.saveMessage(receiver: request.receiver,
+                                  sender: request.sender,
+                                  messageDate: request.date,
+                                  situation: request.situation,
+                                  type: request.type)
     }
 }

@@ -21,11 +21,17 @@ enum MessageList {
         }
 
         struct Response {
-            
+            var messageList: [MessageInfoModel]
         }
           
         struct ViewModel {
+            struct DisplayedMessage {
+                var type: String
+                var receiver: String
+                var createdDate: String
+            }
             
+            var displayedMessageList: [DisplayedMessage]
         }
     }
 }

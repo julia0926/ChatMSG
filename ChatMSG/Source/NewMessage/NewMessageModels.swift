@@ -28,6 +28,7 @@ enum MakeMessage {
             var writingStyle: String
             ///자세한 상황 설명
             var situation: String
+            
         }
 
         struct Response {
