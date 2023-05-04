@@ -41,7 +41,6 @@ final class NewMessageRouter: NewMessageRoutingLogic, NewMessageDataPassing {
         let senderVC = SenderViewController()
         recevierVC?.navigationController?.pushViewController(senderVC, animated: true)
         dataStore?.receiver = receiver
-        senderVC.dataStore = dataStore
     }
     
     func senderRouteToDatePick(_ sender: String) {

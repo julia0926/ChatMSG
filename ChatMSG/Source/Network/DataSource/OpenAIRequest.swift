@@ -17,11 +17,7 @@ struct OpenAIRequest {
     ///메세지에 담길 날짜
     let date: String
     ///어체
-    let stylistic: String
-    ///메세지에 담길 장소
-    let location: String
-    ///메세지 길이
-    let length: String
+    let writingStyle: String
     ///자세한 상황 설명
     let situation: String
 }

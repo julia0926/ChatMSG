@@ -108,7 +108,6 @@ final class DatePickViewController: UIViewController {
     }
     
     @objc private func changedDatePicker(_ sender: UIDatePicker) {
-        print(sender.date)
         self.pickerDate = sender.date
         self.nextButton.isEnabled = true
         self.nextButton.setTitleColor(.white, for: .normal)

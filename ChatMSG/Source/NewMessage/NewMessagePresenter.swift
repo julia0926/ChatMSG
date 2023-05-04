@@ -13,18 +13,25 @@
 import UIKit
 
 protocol NewMessagePresentationLogic {
-    func presentNewMessage(response: MakeMessage.makeNewMessage.Response)
+    func presentRequestedMessage(response: MakeMessage.makeNewMessage.Response)
+    func presentRequestedMessageError(response: MakeMessage.makeNewMessage.Response.Error)
 }
 
 final class NewMessagePresenter: NewMessagePresentationLogic {
-    weak var viewController: NewMessageDisplayLogic?
-  
-    // MARK: -  Do something
     
-    func presentNewMessage(response: MakeMessage.makeNewMessage.Response) {
+    weak var viewController: NewMessageDisplayLogic?
+      
+    func presentRequestedMessage(response: MakeMessage.makeNewMessage.Response) {
         let viewModel = MakeMessage.makeNewMessage.ViewModel(displayedMessage: response.newMessage)
         Task { @MainActor in
-            viewController?.displaySomething(viewModel: viewModel)
+            viewController?.displayNewMessage(viewModel: viewModel)
+        }
+    }
+    
+    func presentRequestedMessageError(response: MakeMessage.makeNewMessage.Response.Error) {
+        let error = MakeMessage.makeNewMessage.ViewModel.Error(message: response.message)
+        Task { @MainActor in
+            viewController?.displayError(error: error)
         }
     }
 }

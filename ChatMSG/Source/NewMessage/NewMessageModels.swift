@@ -17,30 +17,34 @@ enum MakeMessage {
       enum makeNewMessage {
           
         struct Request {
-            ///메세지 유형
-            let type: String
-            /// 수신자
-            let receiver: String
+            var receiver: String
             ///송신자
-            let sender: String
+            var sender: String
             ///메세지에 담길 날짜
-            let date: Date
+            var date: Date
+            ///메세지 유형
+            var type: String
             ///어체
-            let stylistic: String
-            ///메세지에 담길 장소
-            let location: String?
-            ///메세지 길이
-            let length: Int
+            var writingStyle: String
             ///자세한 상황 설명
-            let situation: String
+            var situation: String
         }
 
         struct Response {
             var newMessage: String
+            
+            struct Error {
+                var message: String
+            }
         }
           
         struct ViewModel {
+            
             var displayedMessage: String
+            
+            struct Error {
+                var message: String
+            }
         }
     }
 }

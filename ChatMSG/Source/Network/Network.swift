@@ -13,15 +13,15 @@ protocol NetworkProtocol {
 }
 
 final class Network: NetworkProtocol {
-        
+            
     @frozen enum Constants {
-        static let key = "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"
+        static let key = "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"
     }
     
     private var client: OpenAISwift?
     
-    init() {
-        self.client = OpenAISwift(authToken: Constants.key)
+    init(client: OpenAISwift = OpenAISwift(authToken: Constants.key)) {
+        self.client = client
     }
 
     func request(_ request: OpenAIRequest) async throws -> String {
@@ -33,7 +33,7 @@ final class Network: NetworkProtocol {
                                    completionHandler: { result in
                 switch result {
                 case .success(let model):
-                    let output = model.choices?.first?.text ?? "결과가 없습니다."
+                    let output = model.choices?.first?.text ?? ""
                     continuation.resume(with: .success(output))
                 case.failure(let error):
                     continuation.resume(with: .failure(error))
@@ -45,18 +45,14 @@ final class Network: NetworkProtocol {
     
     private func makeRequest(_ request: OpenAIRequest) -> String {
         let request = """
-        다음 정보를 기반으로 자세하게 메세지를 자세히 작성해줘.
-        \(request.type)의 여러 예시를 기반으로 자연스러운 문장으로 메세지를 구성해줘.
-        한국어 문장이 자연스럽게 작성해줘.
-        
-          - 메세지 유형 : \(request.type)
+        다음 정보를 기반으로 최대한 자세하게 메세지를 작성해줘.
+        \(request.type) 메세지의 여러 예시를 기반으로 자연스러운 문장으로 메세지를 구성해줘.
+
           - 받는 사람 : \(request.receiver)
           - 보내는 사람 : \(request.sender)
-          - 날짜 : \(request.date)
-          - 어체 : \(request.stylistic)
-          - 장소 : \(request.location)
-          - 메세지 길이 : \(request.length)
+          - 어체 : \(request.writingStyle)
           - 상황 설명 : \(request.situation)
+          - 상황 속 날짜 : \(request.date)
         """
         print(request)
         return request
