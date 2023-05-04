@@ -22,13 +22,12 @@
 		6C56AC2A29F9170C00D6BDD5 /* NewMessageWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C56AC2429F9170C00D6BDD5 /* NewMessageWorker.swift */; };
 		6C56AC2B29F9170C00D6BDD5 /* NewMessageRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C56AC2529F9170C00D6BDD5 /* NewMessageRouter.swift */; };
 		6C56AC2C29F9170C00D6BDD5 /* NewMessageModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C56AC2629F9170C00D6BDD5 /* NewMessageModels.swift */; };
-		6C56AC2D29F9170C00D6BDD5 /* NewMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C56AC2729F9170C00D6BDD5 /* NewMessageViewController.swift */; };
+		6C56AC2D29F9170C00D6BDD5 /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C56AC2729F9170C00D6BDD5 /* ResultViewController.swift */; };
 		6C56AC2E29F9170C00D6BDD5 /* NewMessageInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C56AC2829F9170C00D6BDD5 /* NewMessageInteractor.swift */; };
 		6C56AC3129F91D6C00D6BDD5 /* OpenAIDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C56AC3029F91D6C00D6BDD5 /* OpenAIDataSource.swift */; };
 		6C56AC3329F922D600D6BDD5 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C56AC3229F922D600D6BDD5 /* Network.swift */; };
 		6C674FFE2A00AC610050680E /* ReceiverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C674FFD2A00AC610050680E /* ReceiverViewController.swift */; };
 		6C6750002A00AF330050680E /* SenderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C674FFF2A00AF330050680E /* SenderViewController.swift */; };
-		6C6750032A00B17D0050680E /* NewMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C6750022A00B17D0050680E /* NewMessage.swift */; };
 		6C6750052A00D64D0050680E /* DatePickViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C6750042A00D64D0050680E /* DatePickViewController.swift */; };
 		6C6750072A00E3180050680E /* SituationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C6750062A00E3180050680E /* SituationViewController.swift */; };
 		6C6750092A00E3E40050680E /* LineTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C6750082A00E3E40050680E /* LineTextView.swift */; };
@@ -57,13 +56,12 @@
 		6C56AC2429F9170C00D6BDD5 /* NewMessageWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMessageWorker.swift; sourceTree = "<group>"; };
 		6C56AC2529F9170C00D6BDD5 /* NewMessageRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMessageRouter.swift; sourceTree = "<group>"; };
 		6C56AC2629F9170C00D6BDD5 /* NewMessageModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMessageModels.swift; sourceTree = "<group>"; };
-		6C56AC2729F9170C00D6BDD5 /* NewMessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMessageViewController.swift; sourceTree = "<group>"; };
+		6C56AC2729F9170C00D6BDD5 /* ResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
 		6C56AC2829F9170C00D6BDD5 /* NewMessageInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMessageInteractor.swift; sourceTree = "<group>"; };
 		6C56AC3029F91D6C00D6BDD5 /* OpenAIDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIDataSource.swift; sourceTree = "<group>"; };
 		6C56AC3229F922D600D6BDD5 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		6C674FFD2A00AC610050680E /* ReceiverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiverViewController.swift; sourceTree = "<group>"; };
 		6C674FFF2A00AF330050680E /* SenderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SenderViewController.swift; sourceTree = "<group>"; };
-		6C6750022A00B17D0050680E /* NewMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMessage.swift; sourceTree = "<group>"; };
 		6C6750042A00D64D0050680E /* DatePickViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickViewController.swift; sourceTree = "<group>"; };
 		6C6750062A00E3180050680E /* SituationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SituationViewController.swift; sourceTree = "<group>"; };
 		6C6750082A00E3E40050680E /* LineTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineTextView.swift; sourceTree = "<group>"; };
@@ -133,10 +131,9 @@
 		6C56AC2229F916DF00D6BDD5 /* NewMessage */ = {
 			isa = PBXGroup;
 			children = (
-				6C6750012A00B1760050680E /* Model */,
 				6CA9043A29FF768B00E0A6D8 /* VC */,
 				6C005DF929FA81350073712D /* Component */,
-				6C56AC2729F9170C00D6BDD5 /* NewMessageViewController.swift */,
+				6C56AC2729F9170C00D6BDD5 /* ResultViewController.swift */,
 				6C56AC2829F9170C00D6BDD5 /* NewMessageInteractor.swift */,
 				6C56AC2329F9170C00D6BDD5 /* NewMessagePresenter.swift */,
 				6C56AC2429F9170C00D6BDD5 /* NewMessageWorker.swift */,
@@ -153,14 +150,6 @@
 				6C005DF429FA6C320073712D /* DataSource */,
 			);
 			path = Network;
-			sourceTree = "<group>";
-		};
-		6C6750012A00B1760050680E /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				6C6750022A00B17D0050680E /* NewMessage.swift */,
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		6CA9043A29FF768B00E0A6D8 /* VC */ = {
@@ -324,11 +313,11 @@
 				6C56AC1F29F913BA00D6BDD5 /* MessageListModels.swift in Sources */,
 				6C56AC1D29F913BA00D6BDD5 /* MessageListWorker.swift in Sources */,
 				6C4DB30229FF40F80056A2B2 /* KeywordCell.swift in Sources */,
-				6C56AC2D29F9170C00D6BDD5 /* NewMessageViewController.swift in Sources */,
+				6C56AC2D29F9170C00D6BDD5 /* ResultViewController.swift in Sources */,
 				6C56AC2E29F9170C00D6BDD5 /* NewMessageInteractor.swift in Sources */,
+				6C6750092A00E3E40050680E /* LineTextView.swift in Sources */,
 				6C674FFE2A00AC610050680E /* ReceiverViewController.swift in Sources */,
 				6C56AC2B29F9170C00D6BDD5 /* NewMessageRouter.swift in Sources */,
-				6C6750032A00B17D0050680E /* NewMessage.swift in Sources */,
 				6C4DB30029FF40800056A2B2 /* UICollectionView+Extension.swift in Sources */,
 				6C56AC1C29F913BA00D6BDD5 /* MessageListPresenter.swift in Sources */,
 				6C44B88C29FE5081007D6526 /* KeywordView.swift in Sources */,

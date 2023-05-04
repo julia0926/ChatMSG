@@ -26,7 +26,6 @@ final class NewMessageWorker: NewMessageWorkerProtocol {
     func requestNewMessage(_ request: MakeMessage.makeNewMessage.Request) async throws -> String {
         let output = translate(request)
         let result = try await datasource.getMessage(request: output)
-        print("result", result)
         return result
     }
         
@@ -34,14 +33,12 @@ final class NewMessageWorker: NewMessageWorkerProtocol {
         return OpenAIRequest(type: model.type,
                              receiver: model.receiver,
                              sender: model.sender,
-                             date: stringToDate(model.date),
-                             stylistic: model.stylistic,
-                             location: model.location ?? "없음",
-                             length: "\(model.length)자",
+                             date: dateToString(model.date),
+                             writingStyle: model.writingStyle,
                              situation: model.situation)
     }
     
-    private func stringToDate(_ data: Date) -> String {
+    private func dateToString(_ data: Date) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy년 MM월 dd일"
         return dateFormatter.string(from: data)
