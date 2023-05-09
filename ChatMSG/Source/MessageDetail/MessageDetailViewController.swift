@@ -71,6 +71,7 @@ final class MessageDetailViewController: UIViewController, MessageDetailDisplayL
         view.layer.cornerRadius = 15
         view.layer.borderWidth = 2
         view.layer.borderColor = UIColor.orange.cgColor
+        view.isEditable = false
         return view
     }()
     

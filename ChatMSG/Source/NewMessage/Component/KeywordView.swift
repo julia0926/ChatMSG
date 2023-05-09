@@ -21,7 +21,7 @@ final class KeywordView: UIView {
 
     private var keywordType: KeywordType?
     private var messageTypeList: [String] = ["🙇🏻‍♀️ 감사", "🎉 축하", "💌 초대장", "🙅‍♀️ 거절", "🥺 사과", "🙏 문의"]
-    private var writingStyleList: [String] = ["공손한 존댓말", "편안한 말투의 해체"]
+    private var writingStyleList: [String] = ["공손한 존댓말", "편안한 말투의 반말"]
     
     private var selectedIndexPath: IndexPath?
     

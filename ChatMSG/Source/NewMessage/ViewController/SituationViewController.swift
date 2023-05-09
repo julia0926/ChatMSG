@@ -106,7 +106,7 @@ extension SituationViewController {
         self.textView.snp.makeConstraints { make in
             make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).inset(50)
             make.leading.trailing.equalToSuperview().inset(30)
-            make.height.equalTo(220)
+            make.height.equalTo(300)
         }
         
         self.nextButton.snp.makeConstraints { make in
