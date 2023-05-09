@@ -18,6 +18,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let mainVC = MessageListViewController()
         mainVC.view.backgroundColor = .systemBackground
         let naviVC = UINavigationController(rootViewController: mainVC)
+        naviVC.navigationBar.tintColor = .orange
         window.rootViewController = naviVC
         window.makeKeyAndVisible()
     }

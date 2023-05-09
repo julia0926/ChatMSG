@@ -13,19 +13,22 @@
 import UIKit
 
 protocol MessageListPresentationLogic {
-    func presentSomething(response: MessageList.Something.Response)
+    func presentMessageList(response: MessageList.Something.Response)
 }
 
 final class MessageListPresenter: MessageListPresentationLogic {
     weak var viewController: MessageListDisplayLogic?
   
-    // MARK: -  Do something
-    
-    func presentSomething(response: MessageList.Something.Response) {
-        
-        let viewModel = MessageList.Something.ViewModel()
+    func presentMessageList(response: MessageList.Something.Response) {
+        let displayedMessageList: [MessageList.Something.ViewModel.DisplayedMessage] = response.messageList.map {
+            return MessageList.Something.ViewModel.DisplayedMessage(imoji: $0.imoji,
+                                                                    typeAndReceiver: "[\($0.type)] \($0.receiver)",
+                                                                    createdDate: $0.createdDate.slashFormat())
+        }
+        let viewModel = MessageList.Something.ViewModel(displayedMessageList: displayedMessageList)
         Task { @MainActor in
             viewController?.displaySomething(viewModel: viewModel)
         }
     }
+
 }

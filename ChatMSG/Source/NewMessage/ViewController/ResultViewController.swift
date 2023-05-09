@@ -11,6 +11,7 @@
 //
 
 import UIKit
+import CoreData
 
 @MainActor
 protocol NewMessageDisplayLogic: AnyObject {
@@ -32,6 +33,7 @@ final class ResultViewController: UIViewController, NewMessageDisplayLogic {
             self.copyButton.isHidden = componentIsHidden
             self.shareButton.isHidden = componentIsHidden
             self.retryButton.isHidden = componentIsHidden
+            self.saveAndMainButton.isHidden = componentIsHidden
         }
     }
     
@@ -120,7 +122,7 @@ final class ResultViewController: UIViewController, NewMessageDisplayLogic {
         let btn = UIButton()
         btn.setTitle("🔗 공유", for: .normal)
         btn.setTitleColor(.darkGray, for: .normal)
-        btn.titleLabel?.font = .systemFont(ofSize: 15, weight: .semibold)
+        btn.titleLabel?.font = .systemFont(ofSize: 13, weight: .semibold)
         btn.layer.cornerRadius = 20
         btn.layer.backgroundColor = UIColor.systemGray6.cgColor
         btn.clipsToBounds = true
@@ -130,7 +132,7 @@ final class ResultViewController: UIViewController, NewMessageDisplayLogic {
     private let retryButton: UIButton = {
         let btn = UIButton()
         btn.setTitle("♻️ 다시 만들기", for: .normal)
-        btn.titleLabel?.font = .systemFont(ofSize: 14, weight: .semibold)
+        btn.titleLabel?.font = .systemFont(ofSize: 13, weight: .semibold)
         btn.setTitleColor(.darkGray, for: .normal)
         btn.layer.cornerRadius = 20
         btn.layer.backgroundColor = UIColor.systemGray6.cgColor
@@ -138,13 +140,21 @@ final class ResultViewController: UIViewController, NewMessageDisplayLogic {
         return btn
     }()
     
-
+    private let saveAndMainButton: UIButton = {
+        let btn = UIButton()
+        btn.setTitle("저장하고 메인이동", for: .normal)
+        btn.titleLabel?.font = .systemFont(ofSize: 16, weight: .bold)
+        btn.setTitleColor(.white, for: .normal)
+        btn.layer.cornerRadius = 20
+        btn.layer.backgroundColor = UIColor.orange.cgColor
+        return btn
+    }()
+    
     // MARK: - View lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .systemBackground
-        self.view.bringSubviewToFront(self.indicatorStackView)
+        self.configureUI()
         self.setUpLayout()
         self.requestMessage()
         self.configureButton()
@@ -154,6 +164,14 @@ final class ResultViewController: UIViewController, NewMessageDisplayLogic {
         self.copyButton.addTarget(self, action: #selector(tappedCopyButton), for: .touchUpInside)
         self.shareButton.addTarget(self, action: #selector(tappedShareButton), for: .touchUpInside)
         self.retryButton.addTarget(self, action: #selector(tappedRetryButton), for: .touchUpInside)
+        self.saveAndMainButton.addTarget(self, action: #selector(tappedSaveAndMainButton), for: .touchUpInside)
+    }
+    
+    // VIP Cycle Start
+    func requestMessage() {
+        self.componentIsHidden = true
+        self.indicatorView.startAnimating()
+        self.interactor?.requestNewMessage()
     }
     
     @objc private func tappedCopyButton() {
@@ -173,12 +191,11 @@ final class ResultViewController: UIViewController, NewMessageDisplayLogic {
         self.requestMessage()
     }
     
-    // VIP Cycle Start
-    func requestMessage() {
-        self.componentIsHidden = true
-        self.indicatorView.startAnimating()
-        self.interactor?.requestNewMessage()
+    @objc private func tappedSaveAndMainButton() {
+        self.interactor?.saveNewMessage()
+        self.router?.routeToMessageList()
     }
+    
     
     // MARK: - Display Logic
   
@@ -194,7 +211,6 @@ final class ResultViewController: UIViewController, NewMessageDisplayLogic {
         self.present(alert, animated: true, completion: nil)
     }
     
-    
 }
 
 extension ResultViewController {
@@ -203,7 +219,7 @@ extension ResultViewController {
             self.indicatorStackView.addArrangedSubview($0)
         }
         
-        [self.indicatorStackView, self.titleLabel, self.messageTextView, self.copyButton, self.shareButton, self.retryButton].forEach {
+        [self.indicatorStackView, self.titleLabel, self.messageTextView, self.copyButton, self.shareButton, self.retryButton, self.saveAndMainButton].forEach {
             self.view.addSubview($0)
         }
         
@@ -213,7 +229,7 @@ extension ResultViewController {
         }
         
         self.titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).inset(50)
+            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(20)
             make.leading.trailing.equalToSuperview().inset(30)
         }
 
@@ -221,7 +237,7 @@ extension ResultViewController {
         self.messageTextView.snp.makeConstraints { make in
             make.top.equalTo(self.titleLabel.snp.bottom).offset(30)
             make.leading.trailing.equalToSuperview().inset(30)
-            make.height.equalTo(400)
+            make.height.equalTo(370)
         }
         
         self.copyButton.snp.makeConstraints { make in
@@ -232,36 +248,55 @@ extension ResultViewController {
         
         self.shareButton.snp.makeConstraints { make in
             make.top.equalTo(self.messageTextView.snp.bottom).offset(30)
-            make.leading.equalToSuperview().inset(60)
-            make.width.equalTo(100)
-            make.height.equalTo(40)
+            make.centerX.equalToSuperview().offset(-80)
+            make.width.equalTo(90)
+            make.height.equalTo(35)
         }
         
         self.retryButton.snp.makeConstraints { make in
             make.top.equalTo(self.messageTextView.snp.bottom).offset(30)
-            make.trailing.equalToSuperview().inset(60)
+            make.centerX.equalToSuperview().offset(80)
             make.width.equalTo(120)
+            make.height.equalTo(35)
+        }
+        
+        self.saveAndMainButton.snp.makeConstraints { make in
+            make.top.equalTo(self.shareButton.snp.bottom).offset(20)
+            make.centerX.equalToSuperview()
+            make.width.equalTo(160)
             make.height.equalTo(40)
         }
     }
     
     private func showToast(_ message : String, withDuration: Double, delay: Double) {
-        let toastLabel = UILabel(frame: CGRect(x: self.view.frame.size.width/2 - 75, y: self.view.frame.size.height-100, width: 160, height: 40))
-        toastLabel.backgroundColor = UIColor.systemBlue
-        toastLabel.textColor = UIColor.white
-        toastLabel.font = UIFont.systemFont(ofSize: 13.0, weight: .semibold)
-        toastLabel.textAlignment = .center
-        toastLabel.text = message
-        toastLabel.alpha = 1.0
-        toastLabel.layer.cornerRadius = 16
-        toastLabel.clipsToBounds  =  true
-            
-        self.view.addSubview(toastLabel)
-            
-        UIView.animate(withDuration: withDuration, delay: delay, options: .curveEaseOut, animations: {
-            toastLabel.alpha = 0.0
-        }, completion: {(isCompleted) in
-            toastLabel.removeFromSuperview()
-        })
+        let label = UILabel(frame: CGRect(x: self.view.frame.size.width/2 - 75, y: self.view.frame.size.height-100, width: 160, height: 40))
+        label.backgroundColor = UIColor.systemBlue
+        label.textColor = UIColor.white
+        label.font = UIFont.systemFont(ofSize: 13.0, weight: .semibold)
+        label.textAlignment = .center
+        label.text = message
+        label.alpha = 1.0
+        label.layer.cornerRadius = 16
+        label.clipsToBounds  =  true
+        
+        self.view.addSubview(label)
+
+        UIView.animate(withDuration: withDuration, delay: delay, options: .curveEaseOut) {
+            label.alpha = 0.0
+        } completion: { _ in
+            label.removeFromSuperview()
+        }
+    }
+    
+    private func configureUI() {
+        self.view.bringSubviewToFront(self.indicatorStackView)
+        self.view.backgroundColor = .systemBackground
+        self.navigationItem.title = "🚀 결과 메세지"
+        self.navigationController?.navigationBar.topItem?.title = ""
+        self.navigationController?.navigationBar.tintColor = .orange
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
     }
 }

@@ -13,7 +13,8 @@
 import UIKit
 
 protocol MessageListRoutingLogic {
-  //func routeToSomewhere()
+    func routeToMessageDetail(index: Int)
+    func routeToNewMessage()
 }
 
 protocol MessageListDataPassing {
@@ -21,30 +22,28 @@ protocol MessageListDataPassing {
 }
 
 final class MessageListRouter: MessageListRoutingLogic, MessageListDataPassing {
-    weak var viewController: MessageListViewController?
+    
+    weak var listVC: MessageListViewController?
+    weak var newMessageVC: ReceiverViewController?
     var dataStore: MessageListDataStore?
   
 
     // MARK: -  Routing
-    
-//    func routeToSomewhere() {
-//        let destinationVC = UIViewController()
-//        guard var destinationDS = destinationVC.router?.dataStore else { return }
-//        guard let dataStore = dataStore else { return }
-//        guard let viewController = viewController else { return }
-//        passDataToSomewhere(source: dataStore, destination: &destinationDS)
-//        navigateToSomewhere(source: viewController, destination: destinationVC)
-//    }
+    func routeToMessageDetail(index: Int) {
+        let detailVC = MessageDetailViewController()
+        guard let dataStore = dataStore,
+              var detailDataStore = detailVC.router?.dataStore,
+              let vc = listVC else {
+            return
+        }
+        vc.navigationController?.pushViewController(detailVC, animated: true)
+        detailDataStore.message = dataStore.messageList[index]
+    }
 
-  // MARK: - Navigation
-  
-//    func navigateToSomewhere(source: MessageListViewController, destination: SomewhereViewController) {
-//        source.show(destination, sender: nil)
-//    }
-  
-  // MARK: - Passing data
-  
-//    func passDataToSomewhere(source: MessageListDataStore, destination: inout SomewhereDataStore) {
-//        destination.name = source.name
-//    }
+    func routeToNewMessage() {
+        let newMessageVC = ReceiverViewController()
+        guard let vc = listVC else { return }
+        vc.navigationController?.pushViewController(newMessageVC, animated: true)
+    }
+    
 }

@@ -9,6 +9,19 @@
 /* Begin PBXBuildFile section */
 		6C005DEE29FA69AF0073712D /* OpenAIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C005DED29FA69AF0073712D /* OpenAIRequest.swift */; };
 		6C005DFB29FA82E70073712D /* UnderLineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C005DFA29FA82E70073712D /* UnderLineView.swift */; };
+		6C32860A2A035B9500F538FC /* MessageListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3286092A035B9500F538FC /* MessageListCell.swift */; };
+		6C32860C2A035BEE00F538FC /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C32860B2A035BEE00F538FC /* UITableView+Extension.swift */; };
+		6C3286132A0367DC00F538FC /* MessageModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6C3286112A0367DC00F538FC /* MessageModel.xcdatamodeld */; };
+		6C3286152A03692400F538FC /* MessageItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3286142A03692400F538FC /* MessageItem.swift */; };
+		6C3286172A036AA300F538FC /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3286162A036AA300F538FC /* CoreDataManager.swift */; };
+		6C3286192A036B5A00F538FC /* Message+NSFetchRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3286182A036B5A00F538FC /* Message+NSFetchRequest.swift */; };
+		6C3286262A0388BD00F538FC /* MessageDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3286202A0388BD00F538FC /* MessageDetailPresenter.swift */; };
+		6C3286272A0388BD00F538FC /* MessageDetailWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3286212A0388BD00F538FC /* MessageDetailWorker.swift */; };
+		6C3286282A0388BD00F538FC /* MessageDetailRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3286222A0388BD00F538FC /* MessageDetailRouter.swift */; };
+		6C3286292A0388BD00F538FC /* MessageDetailModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3286232A0388BD00F538FC /* MessageDetailModels.swift */; };
+		6C32862A2A0388BD00F538FC /* MessageDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3286242A0388BD00F538FC /* MessageDetailViewController.swift */; };
+		6C32862B2A0388BD00F538FC /* MessageDetailInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3286252A0388BD00F538FC /* MessageDetailInteractor.swift */; };
+		6C3286342A039BA700F538FC /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3286332A039BA700F538FC /* Date+Extension.swift */; };
 		6C44B88C29FE5081007D6526 /* KeywordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C44B88B29FE5081007D6526 /* KeywordView.swift */; };
 		6C4DB30029FF40800056A2B2 /* UICollectionView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C4DB2FF29FF40800056A2B2 /* UICollectionView+Extension.swift */; };
 		6C4DB30229FF40F80056A2B2 /* KeywordCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C4DB30129FF40F80056A2B2 /* KeywordCell.swift */; };
@@ -43,6 +56,19 @@
 /* Begin PBXFileReference section */
 		6C005DED29FA69AF0073712D /* OpenAIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenAIRequest.swift; sourceTree = "<group>"; };
 		6C005DFA29FA82E70073712D /* UnderLineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnderLineView.swift; sourceTree = "<group>"; };
+		6C3286092A035B9500F538FC /* MessageListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageListCell.swift; sourceTree = "<group>"; };
+		6C32860B2A035BEE00F538FC /* UITableView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
+		6C3286122A0367DC00F538FC /* MessageModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MessageModel.xcdatamodel; sourceTree = "<group>"; };
+		6C3286142A03692400F538FC /* MessageItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageItem.swift; sourceTree = "<group>"; };
+		6C3286162A036AA300F538FC /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		6C3286182A036B5A00F538FC /* Message+NSFetchRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Message+NSFetchRequest.swift"; sourceTree = "<group>"; };
+		6C3286202A0388BD00F538FC /* MessageDetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageDetailPresenter.swift; sourceTree = "<group>"; };
+		6C3286212A0388BD00F538FC /* MessageDetailWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageDetailWorker.swift; sourceTree = "<group>"; };
+		6C3286222A0388BD00F538FC /* MessageDetailRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageDetailRouter.swift; sourceTree = "<group>"; };
+		6C3286232A0388BD00F538FC /* MessageDetailModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageDetailModels.swift; sourceTree = "<group>"; };
+		6C3286242A0388BD00F538FC /* MessageDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageDetailViewController.swift; sourceTree = "<group>"; };
+		6C3286252A0388BD00F538FC /* MessageDetailInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageDetailInteractor.swift; sourceTree = "<group>"; };
+		6C3286332A039BA700F538FC /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		6C44B88B29FE5081007D6526 /* KeywordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordView.swift; sourceTree = "<group>"; };
 		6C4DB2FF29FF40800056A2B2 /* UICollectionView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Extension.swift"; sourceTree = "<group>"; };
 		6C4DB30129FF40F80056A2B2 /* KeywordCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeywordCell.swift; sourceTree = "<group>"; };
@@ -107,10 +133,52 @@
 			path = Component;
 			sourceTree = "<group>";
 		};
+		6C3286082A035B8E00F538FC /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				6C3286092A035B9500F538FC /* MessageListCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		6C32860D2A03676F00F538FC /* DataSource */ = {
+			isa = PBXGroup;
+			children = (
+				6C32861A2A036CA900F538FC /* Model */,
+				6C3286112A0367DC00F538FC /* MessageModel.xcdatamodeld */,
+				6C3286162A036AA300F538FC /* CoreDataManager.swift */,
+				6C3286182A036B5A00F538FC /* Message+NSFetchRequest.swift */,
+			);
+			path = DataSource;
+			sourceTree = "<group>";
+		};
+		6C32861A2A036CA900F538FC /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				6C3286142A03692400F538FC /* MessageItem.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		6C32861F2A03885200F538FC /* MessageDetail */ = {
+			isa = PBXGroup;
+			children = (
+				6C3286242A0388BD00F538FC /* MessageDetailViewController.swift */,
+				6C3286252A0388BD00F538FC /* MessageDetailInteractor.swift */,
+				6C3286202A0388BD00F538FC /* MessageDetailPresenter.swift */,
+				6C3286212A0388BD00F538FC /* MessageDetailWorker.swift */,
+				6C3286222A0388BD00F538FC /* MessageDetailRouter.swift */,
+				6C3286232A0388BD00F538FC /* MessageDetailModels.swift */,
+			);
+			path = MessageDetail;
+			sourceTree = "<group>";
+		};
 		6C4DB2FE29FF40720056A2B2 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
 				6C4DB2FF29FF40800056A2B2 /* UICollectionView+Extension.swift */,
+				6C32860B2A035BEE00F538FC /* UITableView+Extension.swift */,
+				6C3286332A039BA700F538FC /* Date+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -118,12 +186,13 @@
 		6C56AC1529F913AC00D6BDD5 /* MessageList */ = {
 			isa = PBXGroup;
 			children = (
+				6C3286082A035B8E00F538FC /* Cell */,
 				6C56AC1A29F913BA00D6BDD5 /* MessageListViewController.swift */,
+				6C56AC1B29F913BA00D6BDD5 /* MessageListInteractor.swift */,
 				6C56AC1629F913BA00D6BDD5 /* MessageListPresenter.swift */,
 				6C56AC1729F913BA00D6BDD5 /* MessageListWorker.swift */,
 				6C56AC1829F913BA00D6BDD5 /* MessageListRouter.swift */,
 				6C56AC1929F913BA00D6BDD5 /* MessageListModels.swift */,
-				6C56AC1B29F913BA00D6BDD5 /* MessageListInteractor.swift */,
 			);
 			path = MessageList;
 			sourceTree = "<group>";
@@ -131,9 +200,8 @@
 		6C56AC2229F916DF00D6BDD5 /* NewMessage */ = {
 			isa = PBXGroup;
 			children = (
-				6CA9043A29FF768B00E0A6D8 /* VC */,
 				6C005DF929FA81350073712D /* Component */,
-				6C56AC2729F9170C00D6BDD5 /* ResultViewController.swift */,
+				6CA9043A29FF768B00E0A6D8 /* ViewController */,
 				6C56AC2829F9170C00D6BDD5 /* NewMessageInteractor.swift */,
 				6C56AC2329F9170C00D6BDD5 /* NewMessagePresenter.swift */,
 				6C56AC2429F9170C00D6BDD5 /* NewMessageWorker.swift */,
@@ -152,7 +220,7 @@
 			path = Network;
 			sourceTree = "<group>";
 		};
-		6CA9043A29FF768B00E0A6D8 /* VC */ = {
+		6CA9043A29FF768B00E0A6D8 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
 				6C674FFD2A00AC610050680E /* ReceiverViewController.swift */,
@@ -160,8 +228,9 @@
 				6C6750042A00D64D0050680E /* DatePickViewController.swift */,
 				6CA9043829FF768600E0A6D8 /* MessageTypeViewController.swift */,
 				6C6750062A00E3180050680E /* SituationViewController.swift */,
+				6C56AC2729F9170C00D6BDD5 /* ResultViewController.swift */,
 			);
-			path = VC;
+			path = ViewController;
 			sourceTree = "<group>";
 		};
 		6CEF4A2C29F8EAD900D1089D = {
@@ -193,9 +262,11 @@
 			isa = PBXGroup;
 			children = (
 				6CEF4A4E29F8EAEB00D1089D /* AppStart */,
+				6C32860D2A03676F00F538FC /* DataSource */,
 				6C56AC2F29F91D3D00D6BDD5 /* Network */,
 				6C56AC2229F916DF00D6BDD5 /* NewMessage */,
 				6C56AC1529F913AC00D6BDD5 /* MessageList */,
+				6C32861F2A03885200F538FC /* MessageDetail */,
 				6C4DB2FE29FF40720056A2B2 /* Extension */,
 			);
 			path = Source;
@@ -299,6 +370,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6C6750052A00D64D0050680E /* DatePickViewController.swift in Sources */,
+				6C32860A2A035B9500F538FC /* MessageListCell.swift in Sources */,
 				6C6750002A00AF330050680E /* SenderViewController.swift in Sources */,
 				6C56AC2C29F9170C00D6BDD5 /* NewMessageModels.swift in Sources */,
 				6C56AC2929F9170C00D6BDD5 /* NewMessagePresenter.swift in Sources */,
@@ -308,22 +380,34 @@
 				6C56AC3329F922D600D6BDD5 /* Network.swift in Sources */,
 				6C56AC2029F913BA00D6BDD5 /* MessageListViewController.swift in Sources */,
 				6CEF4A3929F8EAD900D1089D /* AppDelegate.swift in Sources */,
+				6C32862B2A0388BD00F538FC /* MessageDetailInteractor.swift in Sources */,
+				6C3286342A039BA700F538FC /* Date+Extension.swift in Sources */,
 				6C56AC2129F913BA00D6BDD5 /* MessageListInteractor.swift in Sources */,
 				6C56AC2A29F9170C00D6BDD5 /* NewMessageWorker.swift in Sources */,
 				6C56AC1F29F913BA00D6BDD5 /* MessageListModels.swift in Sources */,
+				6C32862A2A0388BD00F538FC /* MessageDetailViewController.swift in Sources */,
+				6C3286172A036AA300F538FC /* CoreDataManager.swift in Sources */,
 				6C56AC1D29F913BA00D6BDD5 /* MessageListWorker.swift in Sources */,
 				6C4DB30229FF40F80056A2B2 /* KeywordCell.swift in Sources */,
 				6C56AC2D29F9170C00D6BDD5 /* ResultViewController.swift in Sources */,
 				6C56AC2E29F9170C00D6BDD5 /* NewMessageInteractor.swift in Sources */,
 				6C6750092A00E3E40050680E /* LineTextView.swift in Sources */,
+				6C32860C2A035BEE00F538FC /* UITableView+Extension.swift in Sources */,
+				6C3286152A03692400F538FC /* MessageItem.swift in Sources */,
 				6C674FFE2A00AC610050680E /* ReceiverViewController.swift in Sources */,
 				6C56AC2B29F9170C00D6BDD5 /* NewMessageRouter.swift in Sources */,
 				6C4DB30029FF40800056A2B2 /* UICollectionView+Extension.swift in Sources */,
 				6C56AC1C29F913BA00D6BDD5 /* MessageListPresenter.swift in Sources */,
+				6C3286282A0388BD00F538FC /* MessageDetailRouter.swift in Sources */,
 				6C44B88C29FE5081007D6526 /* KeywordView.swift in Sources */,
+				6C3286262A0388BD00F538FC /* MessageDetailPresenter.swift in Sources */,
+				6C3286132A0367DC00F538FC /* MessageModel.xcdatamodeld in Sources */,
 				6C56AC1E29F913BA00D6BDD5 /* MessageListRouter.swift in Sources */,
+				6C3286192A036B5A00F538FC /* Message+NSFetchRequest.swift in Sources */,
 				6CA9043929FF768600E0A6D8 /* MessageTypeViewController.swift in Sources */,
+				6C3286292A0388BD00F538FC /* MessageDetailModels.swift in Sources */,
 				6CEF4A3B29F8EAD900D1089D /* SceneDelegate.swift in Sources */,
+				6C3286272A0388BD00F538FC /* MessageDetailWorker.swift in Sources */,
 				6C56AC3129F91D6C00D6BDD5 /* OpenAIDataSource.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -564,6 +648,19 @@
 			productName = OpenAISwift;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		6C3286112A0367DC00F538FC /* MessageModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				6C3286122A0367DC00F538FC /* MessageModel.xcdatamodel */,
+			);
+			currentVersion = 6C3286122A0367DC00F538FC /* MessageModel.xcdatamodel */;
+			path = MessageModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 6CEF4A2D29F8EAD900D1089D /* Project object */;
 }

@@ -13,25 +13,45 @@
 import UIKit
 
 protocol MessageListBusinessLogic {
-    func doSomething(request: MessageList.Something.Request)
+    func fetchMessageList()
+    func deleteMessage(_ index: Int)
 }
 
 protocol MessageListDataStore {
-    //var name: String { get set }
+    var messageList: [MessageItem] { get set }
 }
 
 final class MessageListInteractor: MessageListBusinessLogic, MessageListDataStore {
+    var messageList: [MessageItem] = []
     var presenter: MessageListPresentationLogic?
-    private var worker: MessageListWorker?
-    //var name: String = ""
+    private var worker: MessageListWorkerProtocol?
   
     // MARK: - do Something
+    init(presenter: MessageListPresentationLogic = MessageListPresenter(),
+         worker: MessageListWorkerProtocol = MessageListWorker()) {
+        self.presenter = presenter
+        self.worker = worker
+    }
   
-    func doSomething(request: MessageList.Something.Request) {
-        worker = MessageListWorker()
-//        worker?.doSomeWork()
+
+    func fetchMessageList() {
+        guard let worker = worker else { return }
+        Task {
+            let messages: [MessageItem] = await worker.fetchMessageList()
+            self.messageList = messages
+            let response = MessageList.Something.Response(messageList: self.messageList)
+            presenter?.presentMessageList(response: response)
+        }
+    }
     
-        let response = MessageList.Something.Response()
-        presenter?.presentSomething(response: response)
+    func deleteMessage(_ index: Int) {
+        guard let worker = worker else { return }
+        Task {
+            if !messageList.isEmpty {
+                await worker.removeMessage(self.messageList[index])
+            } else {
+                // TODO: 비어있을 때 에러 핸들링
+            }
+        }
     }
 }

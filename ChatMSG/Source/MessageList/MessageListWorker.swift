@@ -13,12 +13,19 @@
 import UIKit
 
 protocol MessageListWorkerProtocol {
+    func fetchMessageList() async -> [MessageItem]
+    func removeMessage(_ data: MessageItem) async
 }
 
 final class MessageListWorker: MessageListWorkerProtocol {
     
-    func doSomeWork() {
-        
+    func fetchMessageList() async -> [MessageItem] {
+        let messages: [MessageItem] = await Message.fetchAllMessage()
+        return messages
+    }
+
+    func removeMessage(_ data: MessageItem) async {
+        await Message.deleteMessage(message: data)
     }
     
 }

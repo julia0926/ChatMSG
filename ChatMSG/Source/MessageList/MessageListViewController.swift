@@ -14,6 +14,12 @@ import UIKit
 import SnapKit
 import OpenAISwift
 
+struct Dummy {
+    let type: String
+    let date: String
+    let receiver: String
+}
+
 @MainActor
 protocol MessageListDisplayLogic: AnyObject {
     func displaySomething(viewModel: MessageList.Something.ViewModel)
@@ -46,7 +52,7 @@ final class MessageListViewController: UIViewController, MessageListDisplayLogic
         viewController.router = router
         interactor.presenter = presenter
         presenter.viewController = viewController
-        router.viewController = viewController
+        router.listVC = viewController
         router.dataStore = interactor
     }
     
@@ -54,6 +60,10 @@ final class MessageListViewController: UIViewController, MessageListDisplayLogic
     private lazy var messageListTableView: UITableView = {
         let view = UITableView()
         view.backgroundColor = .systemBackground
+        view.rowHeight = 100
+        view.dataSource = self
+        view.delegate = self
+        view.register(MessageListCell.self)
         return view
     }()
     
@@ -62,8 +72,11 @@ final class MessageListViewController: UIViewController, MessageListDisplayLogic
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setUpLayout()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         self.setUpNavigationBar()
-        doSomething()
+        self.fetchMessageList()
     }
     
     private func setUpNavigationBar() {
@@ -76,8 +89,9 @@ final class MessageListViewController: UIViewController, MessageListDisplayLogic
     }
     
     @objc func didTapNewMessageButton() {
-        // TODO: 라우터에 전달
-        self.navigationController?.pushViewController(ReceiverViewController(), animated: true)
+        if let router = router {
+            router.routeToNewMessage()
+        }
     }
     
     private func setUpLayout() {
@@ -87,21 +101,53 @@ final class MessageListViewController: UIViewController, MessageListDisplayLogic
         
         self.messageListTableView.snp.makeConstraints { make in
             make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
-            make.leading.bottom.trailing.equalToSuperview()
+            make.leading.trailing.bottom.equalToSuperview().inset(10)
         }
     }
     
     // VIP Cycle Start
-    func doSomething() {
-        let request = MessageList.Something.Request()
-        interactor?.doSomething(request: request)
+    func fetchMessageList() {
+        self.messageListTableView.reloadData()
+        self.interactor?.fetchMessageList()
     }
     
     // MARK: - Display Logic
-  
+    var displayedMessageList: [MessageList.Something.ViewModel.DisplayedMessage] = [] {
+        didSet {
+            self.messageListTableView.reloadData()
+        }
+    }
+    
     func displaySomething(viewModel: MessageList.Something.ViewModel) {
-        //nameTextField.text = viewModel.name
+        self.displayedMessageList = viewModel.displayedMessageList
     }
     
 }
 
+extension MessageListViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.displayedMessageList.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(type: MessageListCell.self, for: indexPath)
+        cell.configure(data: self.displayedMessageList[indexPath.row])
+        return cell
+    }
+}
+
+extension MessageListViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let router = router {
+            router.routeToMessageDetail(index: indexPath.row)
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            interactor?.deleteMessage(indexPath.row)
+            self.displayedMessageList.remove(at: indexPath.row)
+            self.messageListTableView.reloadData()
+        }
+    }
+}

@@ -1,5 +1,5 @@
 //
-//  SituationViewController.swift
+//  SenderViewController.swift
 //  ChatMSG
 //
 //  Created by Julia on 2023/05/02.
@@ -11,12 +11,11 @@
 //
 
 import UIKit
-import SnapKit
 
-final class SituationViewController: UIViewController {
+final class SenderViewController: UIViewController {
     var interactor: NewMessageBusinessLogic?
     var router: (NewMessageRoutingLogic & NewMessageDataPassing)?
-    var textViewText: String?
+    var textFieldText: String?
 
     // MARK: - Object lifecycle
     
@@ -37,15 +36,14 @@ final class SituationViewController: UIViewController {
         let router = NewMessageRouter.shared
         viewController.interactor = interactor
         viewController.router = router
-        router.situationVC = viewController
+        router.senderVC = viewController
         router.dataStore = interactor
     }
     
     // MARK: -  UIComponent
-    private let textView: LineTextView =  {
-        let view = LineTextView()
-        view.configure(title: "메세지 속 상황을 알려주세요!",
-                       description: "최대한 자세히 작성할 수록 더욱 완성도 있는 \n메세지를 만들 수 있어요 💌 (글자수는 10자 이상)")
+    private let senderTextField: UnderLineView =  {
+        let view = UnderLineView()
+        view.configure(title: "보내는 사람을 작성해주세요.")
         return view
     }()
 
@@ -65,26 +63,29 @@ final class SituationViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.textView.delegate = self
-        self.configureUI()
         self.setUpLayout()
+        self.configureUI()
         self.settingNextButton()
+        self.senderTextField.delegate = self
     }
+
     
     private func settingNextButton() {
         self.nextButton.addTarget(self, action: #selector(didTapNextButton(_:)), for: .touchUpInside)
     }
     
     @objc private func didTapNextButton(_ sender: UIButton) {
-        if let router = router, let text = self.textViewText {
-            router.situationRouteToResult(situation: text)
+        if let router = router, let text = self.textFieldText {
+            router.senderRouteToDatePick(text)
         }
     }
+
+    
 }
 
-extension SituationViewController: LineTextViewDelegate {
-    func getTextViewText(_ text: String) {
-        self.textViewText = text
+extension SenderViewController: UnderLineViewDelegate {
+    func getTextFieldText(_ text: String) {
+        self.textFieldText = text
     }
     
     func updateButtonState(_ flag: Bool) {
@@ -94,31 +95,34 @@ extension SituationViewController: LineTextViewDelegate {
         self.nextButton.backgroundColor = buttonBackgroundColor
         self.nextButton.isEnabled = flag
     }
+    
 }
 
-extension SituationViewController {
+extension SenderViewController {
     
     private func setUpLayout() {
-        [self.textView, self.nextButton].forEach {
+        [self.senderTextField, self.nextButton].forEach {
             self.view.addSubview($0)
         }
         
-        self.textView.snp.makeConstraints { make in
+        self.senderTextField.snp.makeConstraints { make in
             make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).inset(50)
             make.leading.trailing.equalToSuperview().inset(30)
-            make.height.equalTo(220)
+            make.height.equalTo(140)
         }
         
         self.nextButton.snp.makeConstraints { make in
-            make.top.equalTo(self.textView.snp.bottom).offset(30)
-            make.trailing.equalTo(self.textView.snp.trailing)
+            make.top.equalTo(self.senderTextField.snp.bottom).offset(30)
+            make.trailing.equalTo(self.senderTextField.snp.trailing)
             make.width.equalTo(70)
             make.height.equalTo(35)
         }
+        
     }
     
     private func configureUI() {
         self.view.backgroundColor = .systemBackground
+        self.navigationItem.title = ". 🐢 . . ."
         self.navigationController?.navigationBar.topItem?.title = ""
         self.navigationController?.navigationBar.tintColor = .orange
     }
@@ -126,4 +130,5 @@ extension SituationViewController {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
+    
 }

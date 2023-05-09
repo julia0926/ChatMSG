@@ -14,6 +14,7 @@ import UIKit
 
 protocol NewMessageBusinessLogic {
     func requestNewMessage()
+    func saveNewMessage()
 }
 
 protocol NewMessageDataStore {
@@ -33,8 +34,10 @@ final class NewMessageInteractor: NewMessageBusinessLogic, NewMessageDataStore {
     var sender: String?
     var date: Date?
     var type: String?
+    var imoji: String?
     var writingStyle: String?
-    var situation: String? 
+    var situation: String?
+    var result: String?
 
     var presenter: NewMessagePresentationLogic?
     private var worker: NewMessageWorkerProtocol?
@@ -45,19 +48,13 @@ final class NewMessageInteractor: NewMessageBusinessLogic, NewMessageDataStore {
         self.worker = worker
     }
   
-    // MARK: - fetchNewMessage
     func requestNewMessage() {
         guard let worker = worker else { return }
         Task { [weak self] in
             guard let self = self else { return }
             do {
-                let request = MakeMessage.makeNewMessage.Request(receiver: self.receiver ?? "",
-                                                                 sender: self.sender ?? "",
-                                                                 date: self.date ?? .now,
-                                                                 type: removeImoji(self.type),
-                                                                 writingStyle: self.writingStyle ?? "",
-                                                                 situation: self.situation ?? "")
-                let message = try await worker.requestNewMessage(request)
+                let message = try await worker.requestNewMessage(self.makeNewMessageRequest())
+                self.result = message
                 let response = MakeMessage.makeNewMessage.Response(newMessage: message)
                 presenter?.presentRequestedMessage(response: response)
             } catch {
@@ -66,12 +63,30 @@ final class NewMessageInteractor: NewMessageBusinessLogic, NewMessageDataStore {
         }
     }
     
-    private func removeImoji(_ origin: String?) -> String {
-        if let splitStr: String.SubSequence = self.type?.split(separator: " ").last {
-            return String(splitStr)
+    func saveNewMessage() {
+        guard let worker = worker else { return }
+        Task {
+            await worker.saveNewMessage(makeSaveMessageRequest())
         }
-        return ""
     }
     
+    private func makeNewMessageRequest() -> MakeMessage.makeNewMessage.Request.newMessage {
+        return MakeMessage.makeNewMessage.Request.newMessage(receiver: self.receiver ?? "",
+                                                         sender: self.sender ?? "",
+                                                         date: self.date ?? .now,
+                                                         type: self.type ?? "",
+                                                         writingStyle: self.writingStyle ?? "",
+                                                         situation: self.situation ?? "")
+    }
+    
+    private func makeSaveMessageRequest() -> MakeMessage.makeNewMessage.Request.saveMessage {
+        return MakeMessage.makeNewMessage.Request.saveMessage(receiver: self.receiver ?? "",
+                                                              sender: self.sender ?? "",
+                                                              date: self.date ?? .now,
+                                                              type: self.type ?? "",
+                                                              result: self.result ?? "",
+                                                              imoji: self.imoji ?? "")
+    }
+
 
 }

@@ -1,5 +1,5 @@
 //
-//  MessageTypeViewController.swift
+//  ReceiverViewController.swift
 //  ChatMSG
 //
 //  Created by Julia on 2023/05/02.
@@ -12,13 +12,11 @@
 
 import UIKit
 
-final class MessageTypeViewController: UIViewController {
+final class ReceiverViewController: UIViewController {
     var interactor: NewMessageBusinessLogic?
     var router: (NewMessageRoutingLogic & NewMessageDataPassing)?
+    var textFieldText: String?
     
-    private var messageType: String?
-    private var writingStyle: String?
-
     // MARK: - Object lifecycle
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -38,22 +36,14 @@ final class MessageTypeViewController: UIViewController {
         let router = NewMessageRouter.shared
         viewController.interactor = interactor
         viewController.router = router
-        router.typeVC = viewController
+        router.recevierVC = viewController
         router.dataStore = interactor
     }
     
     // MARK: -  UIComponent
-    private let typeKeywordView: KeywordView =  {
-        let view = KeywordView()
-        view.configure(type: .messageType,
-                       title: "어떤 타입의 메세지인가요?")
-        return view
-    }()
-    
-    private let writingStyleKeywordView: KeywordView =  {
-        let view = KeywordView()
-        view.configure(type: .writingStyle,
-                       title: "메세지의 어체를 선택해주세요.")
+    private let receiverTextField: UnderLineView =  {
+        let view = UnderLineView()
+        view.configure(title: "받는 사람을 작성해주세요.")
         return view
     }()
     
@@ -74,13 +64,8 @@ final class MessageTypeViewController: UIViewController {
         super.viewDidLoad()
         self.configureUI()
         self.setUpLayout()
-        self.settingKeywordView()
         self.settingNextButton()
-    }
-    
-    private func settingKeywordView() {
-        self.typeKeywordView.delegate = self
-        self.writingStyleKeywordView.delegate = self
+        self.receiverTextField.delegate = self
     }
     
     private func settingNextButton() {
@@ -88,56 +73,58 @@ final class MessageTypeViewController: UIViewController {
     }
     
     @objc private func didTapNextButton(_ sender: UIButton) {
-        if let router = router,
-            let type = self.messageType,
-            let style = writingStyle {
-            router.messageTypeRouteToSituation(type: type, writingStyle: style)
+        if let router = router, let text = self.textFieldText {
+            router.receiverRouteToSender(text)
         }
     }
     
 }
 
-extension MessageTypeViewController: KeywordViewDelegate {
-    func getMessageType(_ type: String) {
-        self.messageType = type
+extension ReceiverViewController: UnderLineViewDelegate {
+    func getTextFieldText(_ text: String) {
+        self.textFieldText = text
     }
-
-    func getWritingStyle(_ style: String) {
-        self.writingStyle = style
+    
+    func updateButtonState(_ flag: Bool) {
+        let buttonTitleColor: UIColor = flag ? .white : .black
+        let buttonBackgroundColor: UIColor = flag ? .orange : .clear
+        self.nextButton.setTitleColor(buttonTitleColor, for: .normal)
+        self.nextButton.backgroundColor = buttonBackgroundColor
+        self.nextButton.isEnabled = flag
     }
+    
 }
 
-extension MessageTypeViewController {
-    
+extension ReceiverViewController {
+
     private func setUpLayout() {
-        [self.typeKeywordView, self.writingStyleKeywordView,  self.nextButton].forEach {
+        [self.receiverTextField, self.nextButton].forEach {
             self.view.addSubview($0)
         }
-        
-        self.typeKeywordView.snp.makeConstraints { make in
+    
+        self.receiverTextField.snp.makeConstraints { make in
             make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).inset(50)
             make.leading.trailing.equalToSuperview().inset(30)
             make.height.equalTo(140)
         }
         
-        self.writingStyleKeywordView.snp.makeConstraints { make in
-            make.top.equalTo(self.typeKeywordView.snp.bottom).offset(10)
-            make.leading.trailing.equalToSuperview().inset(30)
-            make.height.equalTo(70)
-        }
-        
         self.nextButton.snp.makeConstraints { make in
-            make.top.equalTo(self.writingStyleKeywordView.snp.bottom).offset(30)
-            make.trailing.equalTo(self.writingStyleKeywordView.snp.trailing)
+            make.top.equalTo(self.receiverTextField.snp.bottom).offset(30)
+            make.trailing.equalTo(self.receiverTextField.snp.trailing)
             make.width.equalTo(70)
             make.height.equalTo(35)
         }
+        
     }
     
     private func configureUI() {
         self.view.backgroundColor = .systemBackground
+        self.navigationItem.title = "🐢 . . . ."
         self.navigationController?.navigationBar.topItem?.title = ""
         self.navigationController?.navigationBar.tintColor = .orange
     }
-
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
 }

@@ -1,5 +1,5 @@
 //
-//  ReceiverViewController.swift
+//  DatePickViewController.swift
 //  ChatMSG
 //
 //  Created by Julia on 2023/05/02.
@@ -12,11 +12,11 @@
 
 import UIKit
 
-final class ReceiverViewController: UIViewController {
+final class DatePickViewController: UIViewController {
     var interactor: NewMessageBusinessLogic?
     var router: (NewMessageRoutingLogic & NewMessageDataPassing)?
-    var textFieldText: String?
-    
+    var pickerDate: Date?
+
     // MARK: - Object lifecycle
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -36,16 +36,26 @@ final class ReceiverViewController: UIViewController {
         let router = NewMessageRouter.shared
         viewController.interactor = interactor
         viewController.router = router
-        router.recevierVC = viewController
+        router.datePickVC = viewController
         router.dataStore = interactor
     }
     
     // MARK: -  UIComponent
-    private let receiverTextField: UnderLineView =  {
-        let view = UnderLineView()
-        view.configure(title: "받는 사람을 작성해주세요.")
+    private let titleLabel: UILabel = {
+        let view = UILabel()
+        view.text = "메세지에 담길 날짜는 언젠가요?"
+        view.textColor = .darkGray
+        view.font = .systemFont(ofSize: 18, weight: .semibold)
         return view
     }()
+
+    private lazy var datePickerView: UIDatePicker = {
+        let view = UIDatePicker()
+        view.datePickerMode = .date
+        view.preferredDatePickerStyle = .inline
+        return view
+    }()
+
     
     private let nextButton: UIButton = {
         let btn = UIButton()
@@ -62,10 +72,21 @@ final class ReceiverViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.configureUI()
         self.setUpLayout()
+        self.configureUI()
+        self.settingDatePicker()
         self.settingNextButton()
-        self.receiverTextField.delegate = self
+    }
+
+    func settingDatePicker() {
+        self.datePickerView.addTarget(self, action: #selector(changedDatePicker), for: .valueChanged)
+    }
+    
+    @objc private func changedDatePicker(_ sender: UIDatePicker) {
+        self.pickerDate = sender.date
+        self.nextButton.isEnabled = true
+        self.nextButton.setTitleColor(.white, for: .normal)
+        self.nextButton.backgroundColor = .orange
     }
     
     private func settingNextButton() {
@@ -73,57 +94,44 @@ final class ReceiverViewController: UIViewController {
     }
     
     @objc private func didTapNextButton(_ sender: UIButton) {
-        if let router = router, let text = self.textFieldText {
-            router.receiverRouteToSender(text)
+        if let router = router, let date = self.pickerDate {
+            router.datePickRouteToMessageType(date)
         }
     }
     
 }
 
-extension ReceiverViewController: UnderLineViewDelegate {
-    func getTextFieldText(_ text: String) {
-        self.textFieldText = text
-    }
+extension DatePickViewController {
     
-    func updateButtonState(_ flag: Bool) {
-        let buttonTitleColor: UIColor = flag ? .white : .black
-        let buttonBackgroundColor: UIColor = flag ? .orange : .clear
-        self.nextButton.setTitleColor(buttonTitleColor, for: .normal)
-        self.nextButton.backgroundColor = buttonBackgroundColor
-        self.nextButton.isEnabled = flag
-    }
-    
-}
-
-extension ReceiverViewController {
-
     private func setUpLayout() {
-        [self.receiverTextField, self.nextButton].forEach {
+        [self.titleLabel, self.datePickerView, self.nextButton].forEach {
             self.view.addSubview($0)
         }
-    
-        self.receiverTextField.snp.makeConstraints { make in
-            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).inset(50)
+        
+        self.titleLabel.snp.makeConstraints { make in
+            make.top.equalTo(self.view.safeAreaLayoutGuide.snp.top).offset(50)
             make.leading.trailing.equalToSuperview().inset(30)
-            make.height.equalTo(140)
+        }
+        
+        self.datePickerView.snp.makeConstraints { make in
+            make.top.equalTo(self.titleLabel.snp.bottom).offset(30)
+            make.leading.trailing.equalToSuperview().inset(30)
+            make.height.equalTo(260)
         }
         
         self.nextButton.snp.makeConstraints { make in
-            make.top.equalTo(self.receiverTextField.snp.bottom).offset(30)
-            make.trailing.equalTo(self.receiverTextField.snp.trailing)
+            make.top.equalTo(self.datePickerView.snp.bottom).offset(30)
+            make.trailing.equalTo(self.datePickerView.snp.trailing)
             make.width.equalTo(70)
             make.height.equalTo(35)
         }
-        
     }
     
     private func configureUI() {
         self.view.backgroundColor = .systemBackground
+        self.navigationItem.title = ". . 🐢 . ."
         self.navigationController?.navigationBar.topItem?.title = ""
         self.navigationController?.navigationBar.tintColor = .orange
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.view.endEditing(true)
-    }
 }
