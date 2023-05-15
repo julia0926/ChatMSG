@@ -14,13 +14,9 @@ protocol NetworkProtocol {
 
 final class Network: NetworkProtocol {
             
-    @frozen enum Constants {
-        static let key = "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"
-    }
-    
     private var client: OpenAISwift?
     
-    init(client: OpenAISwift = OpenAISwift(authToken: Constants.key)) {
+    init(client: OpenAISwift = OpenAISwift(authToken: Bundle.main.apiKey)) {
         self.client = client
     }
 
@@ -46,7 +42,8 @@ final class Network: NetworkProtocol {
     private func makeRequest(_ request: OpenAIRequest) -> String {
         let request = """
         다음 정보를 기반으로 최대한 자세하게 메세지를 작성해줘.
-        \(request.type) 메세지의 여러 예시를 기반으로 자연스러운 문장으로 메세지를 구성해줘.
+        \(request.type) 메세지의 여러 예시를 기반으로 메세지를 구성해줘.
+        상황 설명의 내용이 모두 포함되게 한국어가 자연스러운 문장으로 메세지를 만들어줘
 
           - 받는 사람 : \(request.receiver)
           - 보내는 사람 : \(request.sender)
